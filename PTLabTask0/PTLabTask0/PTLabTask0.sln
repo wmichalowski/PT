@@ -5,7 +5,11 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTLabTask0", "PTLabTask0\PTLabTask0.csproj", "{B6F31EF5-DE31-4B37-BB08-AB87A0D8BF5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTLabTask0Test", "PTLabTask0Test\PTLabTask0Test.csproj", "{E6471422-BF3E-43C9-A6E8-3B14DFD6B711}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTLabTask0Test", "PTLabTask0Test\PTLabTask0Test.csproj", "{E6471422-BF3E-43C9-A6E8-3B14DFD6B711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{14C72146-8459-424F-8A9D-62B25421E09F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{FC203A61-5B22-4AA8-BA32-64EBB65806FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{E6471422-BF3E-43C9-A6E8-3B14DFD6B711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6471422-BF3E-43C9-A6E8-3B14DFD6B711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6471422-BF3E-43C9-A6E8-3B14DFD6B711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14C72146-8459-424F-8A9D-62B25421E09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14C72146-8459-424F-8A9D-62B25421E09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14C72146-8459-424F-8A9D-62B25421E09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14C72146-8459-424F-8A9D-62B25421E09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC203A61-5B22-4AA8-BA32-64EBB65806FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC203A61-5B22-4AA8-BA32-64EBB65806FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC203A61-5B22-4AA8-BA32-64EBB65806FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC203A61-5B22-4AA8-BA32-64EBB65806FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
