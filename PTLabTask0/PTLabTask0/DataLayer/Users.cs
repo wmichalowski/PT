@@ -6,34 +6,57 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    public class Users
+    public abstract class User
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string UserId { get; set; }
-        public string Address { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-    }
-
-
-    internal class Suppliers
-    {
+        public virtual string Id { get; set; }
         public string Name { get; set; }
-        public string SupplierId { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+
+        protected User(string id, string name, string address, string phoneNumber, string email)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            Email = email;
+        }
+    }
+
+    public class Reader: User 
+    {
+        public override string Id { get; set; }
+        public string Surname { get; set; }
+
+        public Reader(string id, string name, string address, string phoneNumber, string email, string surname) 
+            : base(id, name, address, phoneNumber, email)
+        {
+            Surname = surname;
+            Id = id;
+        }
+    }
+
+    public class Supplier: User
+    {
+        public Supplier(string id, string name, string address, string phoneNumber, string email) 
+            : base(id, name, address, phoneNumber, email)
+        {
+            Id = id;
+        }
+
+        public override string Id { get; set; }
 
     }
 
-    internal class Employees
+    public class Employee: User
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmployeeId { get; set; }
-        public string Address { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public Employee(string id, string name, string address, string phoneNumber, string email)
+            : base(id, name, address, phoneNumber, email)
+        {
+            Id = id;
+        }
+
+        public override string Id { get; set; } 
     }
 }

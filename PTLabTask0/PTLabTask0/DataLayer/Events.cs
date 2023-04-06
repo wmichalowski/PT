@@ -6,32 +6,66 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    internal class BookCheckout
-    {
-        public Users User { get; set; }
-        public Books Book { get; set; }
 
+    public class BookCheckout
+    {
+        public string ReaderId { get; set; }
+        public string BookId { get; set; }
+        public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
 
+        public BookCheckout(string readerId, string bookId, string employeeId, DateTime timestamp)
+        {
+            ReaderId = readerId;
+            BookId = bookId;
+            EmployeeId = employeeId;
+            Timestamp = timestamp;
+        }
     }
 
-    internal class BookReturn
+    public class BookReturn
     {
-        public Users User { get; set; }
-        public Books Book { get; set; }
-        public Books BookId { get; set; }
+        public string ReaderId { get; set; }
+        public string BookId { get; set; }
+        public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public BookReturn(string readerId, string bookId, string employeeId, DateTime timestamp)
+        {
+            ReaderId = readerId;
+            BookId = bookId;
+            EmployeeId = employeeId;
+            Timestamp = timestamp;
+        }
     }
 
-    internal class BookAcquisition
+    public class BookAcquisition
     {
-        public Users User { get; set; }
-        public Books Book { get; set; }
+        public string SupplierId { get; set; }
+        public Book Book { get; set; }
+        public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public BookAcquisition(string supplierId, Book book, string employeeId, DateTime timestamp)
+        {
+            SupplierId = supplierId;
+            Book = book;
+            EmployeeId = employeeId;
+            Timestamp = timestamp;
+        }
     }
 
     internal class BookDeletion
     {
+        public string BookId { get; set; }
+        public string EmployeeId { get; set; }
+        public DateTime Timestamp { get; set; }
 
+        public BookDeletion(string bookId, string employeeId, DateTime timestamp)
+        {
+            BookId = bookId;
+            EmployeeId = employeeId;
+            Timestamp = timestamp;
+        }
     }
 }
