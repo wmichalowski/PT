@@ -1,4 +1,4 @@
-﻿namespace DataLayer
+﻿namespace DataLayer.Implementation
 {
     public class Book
     {

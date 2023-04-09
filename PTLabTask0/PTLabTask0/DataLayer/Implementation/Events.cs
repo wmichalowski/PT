@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer
+namespace DataLayer.Implementation
 {
 
-    public class BookCheckout
+    public class BookRent
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
         public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public BookCheckout(string readerId, string bookId, string employeeId, DateTime timestamp)
+        public BookRent(string readerId, string bookId, string employeeId, DateTime timestamp)
         {
             ReaderId = readerId;
             BookId = bookId;
