@@ -24,12 +24,12 @@ namespace DataLayer
         }
     }
 
-    public class Reader: User 
+    public class Person : User 
     {
         public override string Id { get; set; }
         public string Surname { get; set; }
 
-        public Reader(string id, string name, string address, string phoneNumber, string email, string surname) 
+        public Person(string id, string name, string address, string phoneNumber, string email, string surname) 
             : base(id, name, address, phoneNumber, email)
         {
             Surname = surname;
@@ -47,16 +47,5 @@ namespace DataLayer
 
         public override string Id { get; set; }
 
-    }
-
-    public class Employee: User
-    {
-        public Employee(string id, string name, string address, string phoneNumber, string email)
-            : base(id, name, address, phoneNumber, email)
-        {
-            Id = id;
-        }
-
-        public override string Id { get; set; } 
     }
 }
