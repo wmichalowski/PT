@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer
+namespace DataLayer.Implementation
 {
     public abstract class User
     {
-        public virtual string Id { get; set; }
+        
         public string Name { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        protected User(string id, string name, string address, string phoneNumber, string email)
+        protected User(string name, string address, string phoneNumber, string email)
         {
-            Id = id;
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
@@ -26,26 +25,28 @@ namespace DataLayer
 
     public class Person : User 
     {
-        public override string Id { get; set; }
+        public string PersonId { get; set; }
         public string Surname { get; set; }
+        public string Role { get; set; }
 
-        public Person(string id, string name, string address, string phoneNumber, string email, string surname) 
-            : base(id, name, address, phoneNumber, email)
+        public Person(string personId, string name, string address, string phoneNumber, string email, string surname, string role) 
+            : base(name, address, phoneNumber, email)
         {
             Surname = surname;
-            Id = id;
+            PersonId = personId;
+            Role = role;
         }
     }
 
     public class Supplier: User
     {
-        public Supplier(string id, string name, string address, string phoneNumber, string email) 
-            : base(id, name, address, phoneNumber, email)
+        public Supplier(string supplierId, string name, string address, string phoneNumber, string email) 
+            : base(name, address, phoneNumber, email)
         {
-            Id = id;
+            SupplierId = supplierId;
         }
 
-        public override string Id { get; set; }
+        public string SupplierId { get; set; }
 
     }
 }
