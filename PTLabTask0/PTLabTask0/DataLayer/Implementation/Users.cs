@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Implementation
 {
-    public abstract class User
+    public abstract class User: IUsers
     {
         
         public string Name { get; set; }
@@ -23,13 +24,13 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class Person : User 
+    public class Person : User, IPerson
     {
-        public string PersonId { get; set; }
+        public IPerson.PersonIdType PersonId { get; set; }
         public string Surname { get; set; }
-        public string Role { get; set; }
+        public IPerson.RoleType Role { get; set; }
 
-        public Person(string personId, string name, string address, string phoneNumber, string email, string surname, string role) 
+        public Person(IPerson.PersonIdType personId, string name, string address, string phoneNumber, string email, string surname, IPerson.RoleType role) 
             : base(name, address, phoneNumber, email)
         {
             Surname = surname;
@@ -38,7 +39,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class Supplier: User
+    public class Supplier: User, ISupplier
     {
         public Supplier(string supplierId, string name, string address, string phoneNumber, string email) 
             : base(name, address, phoneNumber, email)

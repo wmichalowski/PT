@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.API;
 using DataLayer.Implementation;
 
 namespace DataLayer.Implementation
 {
-    internal class LibraryState
+    internal class LibraryState: ILibraryState
     {
-        public List<Book> Books { get; set; }
-        public List<Person> Suppliers { get; set; }
-        public List<Person> Employees { get; set; }
-        public List<Person> Readers { get; set; }
+        public List<IBook> Books { get; set; }
+        public List<ISupplier> Suppliers { get; set; }
+        public List<IPerson> Employees { get; set; }
+        public List<IPerson> Readers { get; set; }
 
-
-        public LibraryState(List<Book> books, List<Person> suppliers, List<Person> employees, List<Person> readers)
+        public LibraryState(List<IBook> books, List<ISupplier> suppliers, List<IPerson> employees, List<IPerson> readers)
         {
             Books = books;
             Suppliers = suppliers;

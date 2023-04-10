@@ -1,6 +1,8 @@
-﻿namespace DataLayer.Implementation
+﻿using DataLayer.API;
+
+namespace DataLayer.Implementation
 {
-    public class Book
+    public class Book: IBook
     {
         public string Title { get; set; }
         public string Author { get; set; }

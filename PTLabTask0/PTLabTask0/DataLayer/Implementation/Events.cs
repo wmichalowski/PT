@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataLayer.Implementation
 {
 
-    public class BookRent
+    public class BookRent: IRent_Return
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
@@ -23,7 +24,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookReturn
+    public class BookReturn: IRent_Return
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
@@ -39,16 +40,18 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookAcquisition
+    public class BookAcquisition: IBookAcquisition
     {
         public string SupplierId { get; set; }
-        public Book Book { get; set; }
+        public string BookId { get; set; }
+        public IBook Book { get; set; }
         public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public BookAcquisition(string supplierId, Book book, string employeeId, DateTime timestamp)
+        public BookAcquisition(string supplierId, string bookId, IBook book, string employeeId, DateTime timestamp)
         {
             SupplierId = supplierId;
+            BookId = bookId;
             Book = book;
             EmployeeId = employeeId;
             Timestamp = timestamp;
