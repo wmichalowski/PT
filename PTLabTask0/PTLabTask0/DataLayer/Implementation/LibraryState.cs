@@ -22,5 +22,9 @@ namespace DataLayer.Implementation
             Employees = employees;
             Readers = readers;
         }
+
+        public void addBook(Book Book) {
+            Books.Add(Book);
+        }
     }
 }
