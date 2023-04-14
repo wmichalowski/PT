@@ -1,12 +1,9 @@
-﻿using System;
-using PTLabTask0;
+﻿using LogicLayer;
+
 class Hello
 {
     static void Main()
     {
-        Calculator calc = new Calculator();
-
-        double addition = calc.Add(2, 2);
-        Console.WriteLine("2+2="+ addition);
+        Console.WriteLine("hello world");
     }
 }

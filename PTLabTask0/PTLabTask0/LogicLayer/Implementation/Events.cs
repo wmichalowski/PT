@@ -1,15 +1,14 @@
-﻿using DataLayer;
-using DataLayer.API;
+﻿using DataLayer.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Implementation
+namespace LogicLayer.Implementation
 {
 
-    public class BookRent: IRent_Return
+    public class BookRent : IRent_Return
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
@@ -25,7 +24,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookReturn: IRent_Return
+    public class BookReturn : IRent_Return
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
@@ -41,7 +40,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookAcquisition: IBookAcquisition
+    public class BookAcquisition : IBookAcquisition
     {
         public string SupplierId { get; set; }
         public string BookId { get; set; }
@@ -56,6 +55,8 @@ namespace DataLayer.Implementation
             Book = book;
             EmployeeId = employeeId;
             Timestamp = timestamp;
+
+
         }
     }
 

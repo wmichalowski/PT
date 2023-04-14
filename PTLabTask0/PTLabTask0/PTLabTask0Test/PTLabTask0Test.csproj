@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
     <ProjectReference Include="..\PTLabTask0\PTLabTask0.csproj" />
   </ItemGroup>
 
