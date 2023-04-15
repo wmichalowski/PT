@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Implementation
 {
-    internal class DataRepository: IDataRepository
+    public class DataRepository: IDataRepository
     {
 
         private readonly ILibraryState _libraryState;

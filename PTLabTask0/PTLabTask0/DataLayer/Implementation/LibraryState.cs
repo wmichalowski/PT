@@ -8,7 +8,7 @@ using DataLayer.Implementation;
 
 namespace DataLayer.Implementation
 {
-    internal class LibraryState: ILibraryState, IEvent
+    internal class LibraryState: ILibraryState
     {
         public List<IBook> Books { get; set; }
         public List<ISupplier> Suppliers { get; set; }

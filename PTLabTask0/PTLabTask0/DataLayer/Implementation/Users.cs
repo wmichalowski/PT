@@ -1,4 +1,4 @@
-﻿using DataLayer.API;
+using DataLayer.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class Supplier: User, ISupplier
+    internal class Supplier: User, ISupplier
     {
         public Supplier(string supplierId, string name, string address, string phoneNumber, string email) 
             : base(name, address, phoneNumber, email)

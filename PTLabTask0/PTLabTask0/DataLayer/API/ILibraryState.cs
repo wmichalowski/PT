@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataLayer.API
 {
-    internal interface ILibraryState
+    public interface ILibraryState
     {
         public List<IBook> Books { get; set; }
         public List<ISupplier> Suppliers { get; set; }
         public List<IPerson> Employees { get; set; }
         public List<IPerson> Readers { get; set; }
         public List<IEvent> Events { get; set; }
+
     }
 }
