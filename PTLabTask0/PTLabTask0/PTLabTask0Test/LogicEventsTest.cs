@@ -43,15 +43,17 @@ namespace LogicLayer.Tests
             string bookId = "book1";
             string employeeId = "employee1";
             DateTime timestamp = new DateTime(2023, 4, 15);
-            BookReturn bookReturn = new BookReturn(readerId, bookId, employeeId, timestamp);
+            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+
+            Assert.IsFalse(book.Available);
+
 
             // Act
-            bookReturn.ReaderId = "reader2";
-            bookReturn.BookId = "book2";
-            bookReturn.EmployeeId = "employee2";
-            bookReturn.Timestamp = new DateTime(2023, 4, 16);
+            BookReturn bookReturn = new BookReturn(readerId, bookId, employeeId, timestamp);
 
             // Assert
+            Assert.IsTrue(bookReturn.Available);
+
             Assert.AreEqual("reader2", bookReturn.ReaderId);
             Assert.AreEqual("book2", bookReturn.BookId);
             Assert.AreEqual("employee2", bookReturn.EmployeeId);

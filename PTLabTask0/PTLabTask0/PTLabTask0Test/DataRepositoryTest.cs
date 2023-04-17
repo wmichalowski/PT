@@ -5,11 +5,12 @@ using DataLayer.Implementation;
 public class DataRepositoryTests
 {
     private IDataRepository _dataRepository;
-    private ILibraryState _libraryState;
+    public ILibraryState _libraryState;
 
     [TestInitialize]
     public void Initialize()
     {
+        _libraryState = new LibraryState(); 
         _dataRepository = new DataRepository(_libraryState);
     }
 

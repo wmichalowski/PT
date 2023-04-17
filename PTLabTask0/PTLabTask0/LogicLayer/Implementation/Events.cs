@@ -55,12 +55,10 @@ namespace LogicLayer.Implementation
             Book = book;
             EmployeeId = employeeId;
             Timestamp = timestamp;
-
-
         }
     }
 
-    internal class BookDeletion
+    public class BookDeletion
     {
         public string BookId { get; set; }
         public string EmployeeId { get; set; }
