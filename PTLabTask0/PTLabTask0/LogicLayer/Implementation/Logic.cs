@@ -7,16 +7,19 @@ namespace LogicLayer.Implementation
     public class Logic: ILogic
     {
         private readonly IDataRepository _dataRepository;
+        private readonly IEventsRecording _events;
 
-        public Logic(IDataRepository dataRepository)
+        public Logic(IDataRepository dataRepository, IEventsRecording events)
         {
             _dataRepository = dataRepository;
+            _events = events;
         }
 
-        public void AddBook(IBook book) { 
+        public void BookAcquisition(IBook book, string supplierId, string employeeId) { 
             if (_dataRepository.GetBookById(book.BookId) == null)
             {
                _dataRepository.AddBook(book);
+                _events.RecordBookAcquisition(book, supplierId, employeeId, DateTime.Now);
             }
         }
 
@@ -27,11 +30,34 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void DeleteBook(string bookId)
+        public void BookDeletion (string bookId, string employeeId)
         {
             if (_dataRepository.GetBookById(bookId) != null)
             {
                 _dataRepository.DeleteBook(bookId);
+                _events.RecordBookDeletion(bookId, employeeId, DateTime.Now);
+            }
+        }
+
+        public void BookRent(string bookId, string readerId, string employeeId)
+        {
+            IBook bookToRent = _dataRepository.GetBookById(bookId);
+            if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == true)
+            {
+                bookToRent.Available = false;
+                _events.RecordBookDeletion(bookId, employeeId, DateTime.Now);
+            }
+        }
+
+        public void BookReturn(string bookId, string readerId, string employeeId)
+        {
+            IBook bookToRent = _dataRepository.GetBookById(bookId);
+
+            if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available==false)
+            {
+               
+                bookToRent.Available = true;
+                _events.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
             }
         }
 

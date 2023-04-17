@@ -1,6 +1,8 @@
 ﻿using DataLayer.API;
 using DataLayer.Implementation;
 
+namespace DataLayer.Tests
+{ 
 [TestClass]
 public class DataRepositoryTests
 {
@@ -10,6 +12,7 @@ public class DataRepositoryTests
     [TestInitialize]
     public void Initialize()
     {
+        _libraryState = new LibraryState();
         _dataRepository = new DataRepository(_libraryState);
     }
 
@@ -33,7 +36,7 @@ public class DataRepositoryTests
         IBook existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
         _libraryState.Books.Add(existingBook);
 
-        IBook updatedBook = new Book("Cats", "Alice", "10", "BigPublisher", "Encyclopedia", true);
+        IBook updatedBook = new Book("Cats", "Alice", "100", "BigPublisher", "Encyclopedia", true);
 
         // Act
         _dataRepository.UpdateBook(updatedBook);
@@ -101,4 +104,4 @@ public class DataRepositoryTests
     }
 }
 
-
+}

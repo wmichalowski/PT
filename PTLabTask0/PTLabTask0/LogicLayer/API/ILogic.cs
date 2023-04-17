@@ -9,10 +9,13 @@ namespace LogicLayer.API
 {
     public interface ILogic
     {
-        void AddBook(IBook book);
+        void BookAcquisition(IBook book, string supplierId, string employeeId);
         void UpdateBook(IBook book);
-        void DeleteBook(string bookId);
+        void BookDeletion(string bookId, string employeeId);
         IBook? GetBookById(string bookId);
+
+        void BookRent(string bookId, string readerId, string employeeId);
+        void BookReturn(string bookId, string readerId, string employeeId);
 
         void AddReader(IPerson person);
         void UpdateReader(IPerson person);

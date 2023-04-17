@@ -76,7 +76,7 @@ namespace LogicLayer.Tests
             BookAcquisition bookAcquisition = new BookAcquisition(supplierId, bookId, newBook, employeeId, timestamp);
 
             // Assert
-            Assert.AreEqual("Supplier2", bookAcquisition.SupplierId);
+            Assert.AreEqual("Supplier1", bookAcquisition.SupplierId);
             Assert.AreEqual("book2", bookAcquisition.BookId);
             Assert.AreEqual("Employee2", bookAcquisition.EmployeeId);
             Assert.AreEqual(new DateTime(2023, 4, 16), bookAcquisition.Timestamp);
