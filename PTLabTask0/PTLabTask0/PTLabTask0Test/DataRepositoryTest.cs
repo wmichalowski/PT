@@ -1,4 +1,4 @@
-﻿using DataLayer.API;
+using DataLayer.API;
 using DataLayer.Implementation;
 
 namespace DataLayer.Tests
@@ -7,7 +7,7 @@ namespace DataLayer.Tests
 public class DataRepositoryTests
 {
     private IDataRepository _dataRepository;
-    private ILibraryState _libraryState;
+    public ILibraryState _libraryState;
 
     [TestInitialize]
     public void Initialize()
