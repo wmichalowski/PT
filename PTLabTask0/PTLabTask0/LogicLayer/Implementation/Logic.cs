@@ -1,10 +1,11 @@
-﻿using DataLayer.API;
+﻿using System.Net;
+using DataLayer.API;
 using DataLayer.Implementation;
 using LogicLayer.API;
 
 namespace LogicLayer.Implementation
 {
-    public class Logic: ILogic
+    public class Logic : ILogic
     {
         private readonly IDataRepository _dataRepository;
         private readonly IEventsRecording _events;
@@ -15,22 +16,24 @@ namespace LogicLayer.Implementation
             _events = events;
         }
 
-        public void BookAcquisition(IBook book, string supplierId, string employeeId) { 
+        public void BookAcquisition(IBook book, string supplierId, string employeeId)
+        {
             if (_dataRepository.GetBookById(book.BookId) == null)
             {
-               _dataRepository.AddBook(book);
+                _dataRepository.AddBook(book);
                 _events.RecordBookAcquisition(book, supplierId, employeeId, DateTime.Now);
             }
         }
 
-        public void UpdateBook(IBook book) { 
-            if (_dataRepository.GetBookById(book.BookId)!= null)
+        public void UpdateBook(IBook book)
+        {
+            if (_dataRepository.GetBookById(book.BookId) != null)
             {
                 _dataRepository.UpdateBook(book);
             }
         }
 
-        public void BookDeletion (string bookId, string employeeId)
+        public void BookDeletion(string bookId, string employeeId)
         {
             if (_dataRepository.GetBookById(bookId) != null)
             {
@@ -53,9 +56,9 @@ namespace LogicLayer.Implementation
         {
             IBook bookToRent = _dataRepository.GetBookById(bookId);
 
-            if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available==false)
+            if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == false)
             {
-               
+
                 bookToRent.Available = true;
                 _events.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
             }
@@ -69,7 +72,7 @@ namespace LogicLayer.Implementation
 
         public void AddReader(IPerson person)
         {
-            if(_dataRepository.GetReaderById(person.PersonId) == null)
+            if (_dataRepository.GetReaderById(person.PersonId) == null)
             {
                 _dataRepository.AddReader(person);
             }
@@ -129,7 +132,7 @@ namespace LogicLayer.Implementation
 
         public void AddSupplier(ISupplier supplier)
         {
-            if ( _dataRepository.GetSupplierById(supplier.SupplierId) == null)
+            if (_dataRepository.GetSupplierById(supplier.SupplierId) == null)
             {
                 _dataRepository.AddSupplier(supplier);
             }
@@ -156,5 +159,6 @@ namespace LogicLayer.Implementation
             var supplier = _dataRepository.GetSupplierById(supplierId);
             return supplier ?? throw new ArgumentException("no such supplier");
         }
+
     }
 }

@@ -10,21 +10,23 @@ namespace LogicLayer.Implementation.Tests
     {
         private IDataRepository _dataRepository;
         private ILogic _logic;
+        private IEventsRecording _events;
+
 
         [TestInitialize]
         public void Initialize()
         {
-            _logic = new Logic(_dataRepository);
+            _logic = new Logic(_dataRepository, _events);
         }
 
         [TestMethod]
-        public void AddBook_BookDoesNotExist_AddsBook()
+        public void BookAcquisition_BookDoesNotExist_AddsBook()
         {
             // Arrange
             IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             // Act
-            _logic.AddBook(book);
+            _logic.BookAcquisition(book, "Supplier1", "Emplyee1");
 
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
@@ -46,7 +48,7 @@ namespace LogicLayer.Implementation.Tests
             _dataRepository.AddBook(book);
 
             // Act
-            _logic.AddBook(book);
+            _logic.BookAcquisition(book, "Supplier1", "Emplyee1");
 
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
@@ -101,7 +103,7 @@ namespace LogicLayer.Implementation.Tests
             _dataRepository.AddBook(book);
 
             // Act
-            _logic.DeleteBook(book.BookId);
+            _logic.BookDeletion(book.BookId, "Emplyee1");
 
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
@@ -109,13 +111,13 @@ namespace LogicLayer.Implementation.Tests
         }
 
         [TestMethod]
-        public void DeleteBook_BookDoesNotExist_DoesNotDeleteBook()
+        public void BookDeletion_BookDoesNotExist_DoesNotDeleteBook()
         {
             // Arrange
             IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             // Act
-            _logic.DeleteBook(book.BookId);
+            _logic.BookDeletion(book.BookId, "Emplyee1");
 
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
