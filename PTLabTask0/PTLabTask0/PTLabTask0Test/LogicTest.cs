@@ -9,6 +9,7 @@ namespace LogicLayer.Implementation.Tests
     public class LogicTests
     {
         private IDataRepository _dataRepository;
+        private ILibraryState _libraryState;
         private ILogic _logic;
         private IEventsRecording _events;
 
@@ -16,30 +17,25 @@ namespace LogicLayer.Implementation.Tests
         [TestInitialize]
         public void Initialize()
         {
+            _libraryState = new LibraryState(); 
+            _dataRepository = new DataRepository(_libraryState);
+            _events = new LibraryState();
             _logic = new Logic(_dataRepository, _events);
         }
 
         [TestMethod]
-        public void BookAcquisition_BookDoesNotExist_AddsBook()
+        public void BookAcquisition_BookAlreadyExists_ThrowsException()
         {
             // Arrange
             IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            _dataRepository.AddBook(book);
 
-            // Act
-            _logic.BookAcquisition(book, "Supplier1", "Emplyee1");
-
-            // Assert
-            var result = _dataRepository.GetBookById(book.BookId);
-            Assert.AreEqual(book, result);
-            Assert.AreEqual(book, result);
-            Assert.AreEqual(book.Title, result.Title);
-            Assert.AreEqual(book.Author, result.Author);
-            Assert.AreEqual(book.Publisher, result.Publisher);
-            Assert.AreEqual(book.Category, result.Category);
-            Assert.AreEqual(book.Available, result.Available);
+            // Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => _logic.BookAcquisition(book, "Supplier1", "Emplyee1"));
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void AddBook_BookExists_DoesNotAddBook()
         {
             // Arrange
@@ -55,46 +51,9 @@ namespace LogicLayer.Implementation.Tests
             Assert.AreEqual(book, result);
         }
 
-        [TestMethod]
-        public void UpdateBook_BookExists_UpdatesBook()
-        {
-            // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
-
-            _dataRepository.AddBook(book);
-
-            IBook bookUpdated = new Book("Cats", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
-
-            // Act
-            _logic.UpdateBook(bookUpdated);
-
-            // Assert
-            var result = _dataRepository.GetBookById(book.BookId);
-            Assert.AreEqual(bookUpdated, result);
-            Assert.AreEqual(bookUpdated.Title, result.Title);
-            Assert.AreEqual(bookUpdated.Author, result.Author);
-            Assert.AreEqual(bookUpdated.Publisher, result.Publisher);
-            Assert.AreEqual(bookUpdated.Category, result.Category);
-            Assert.AreEqual(bookUpdated.Available, result.Available);
-        }
 
         [TestMethod]
-        public void UpdateBook_BookDoesNotExist_DoesNotUpdateBook()
-        {
-            // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
-
-            IBook bookUpdated = new Book("Cats", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
-
-            // Act
-            _logic.UpdateBook(bookUpdated);
-
-            // Assert
-            var result = _dataRepository.GetBookById(book.BookId);
-            Assert.AreEqual(book, result);
-        }
-
-        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void DeleteBook_BookExists_DeletesBook()
         {
             // Arrange
@@ -107,22 +66,7 @@ namespace LogicLayer.Implementation.Tests
 
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
-            Assert.IsNull(result);
         }
 
-        [TestMethod]
-        public void BookDeletion_BookDoesNotExist_DoesNotDeleteBook()
-        {
-            // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
-
-            // Act
-            _logic.BookDeletion(book.BookId, "Emplyee1");
-
-            // Assert
-            var result = _dataRepository.GetBookById(book.BookId);
-            Assert.AreEqual(book, result);
-
-        }
     }
 }

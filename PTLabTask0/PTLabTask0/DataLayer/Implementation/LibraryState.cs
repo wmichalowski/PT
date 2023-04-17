@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.API;
-using DataLayer.Implementation;
 
 namespace DataLayer.Implementation
 {
@@ -27,22 +26,22 @@ namespace DataLayer.Implementation
 
         public void RecordBookAcquisition(IBook book, string supplierId, string employeeId, DateTime timestamp)
         {
-            Events.Add(new BookAcquisition(book.BookId, supplierId, employeeId, timestamp));
+            Events.Add(new BookAcquisition(supplierId, book.BookId, book, employeeId, timestamp));
         }
 
         public void RecordBookDeletion(string bookId, string employeeId, DateTime timestamp)
         {
-            Events.Add(new BookDeletionEvent(bookId, employeeId, timestamp));
+            Events.Add(new BookDeletion(bookId, employeeId, timestamp));
         }
 
         public void RecordBookCheckout(string bookId, string readerId, string employeeId, DateTime timestamp)
         {
-            Events.Add(new BookCheckoutEvent(bookId, readerId, employeeId, timestamp));
+            Events.Add(new BookRent(bookId, readerId, employeeId, timestamp));
         }
 
         public void RecordBookReturn(string bookId, string readerId, string employeeId, DateTime timestamp)
         {
-            Events.Add(new BookReturnEvent(bookId, readerId, employeeId, timestamp));
+            Events.Add(new BookReturn(bookId, readerId, employeeId, timestamp));
         }
 
     }

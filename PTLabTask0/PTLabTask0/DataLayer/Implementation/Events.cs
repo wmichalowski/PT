@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicLayer.Implementation
+namespace DataLayer.Implementation
 {
 
     public class BookRent : IRent_Return
@@ -55,10 +55,11 @@ namespace LogicLayer.Implementation
             Book = book;
             EmployeeId = employeeId;
             Timestamp = timestamp;
+
         }
     }
 
-    public class BookDeletion
+    public class BookDeletion: IBookDeletion
     {
         public string BookId { get; set; }
         public string EmployeeId { get; set; }

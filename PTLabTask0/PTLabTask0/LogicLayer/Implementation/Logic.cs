@@ -23,6 +23,10 @@ namespace LogicLayer.Implementation
                 _dataRepository.AddBook(book);
                 _events.RecordBookAcquisition(book, supplierId, employeeId, DateTime.Now);
             }
+            else
+            {
+                throw new ArgumentException("Book already exists");
+            }
         }
 
         public void UpdateBook(IBook book)
@@ -48,7 +52,7 @@ namespace LogicLayer.Implementation
             if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == true)
             {
                 bookToRent.Available = false;
-                _events.RecordBookDeletion(bookId, employeeId, DateTime.Now);
+                _events.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
             }
         }
 

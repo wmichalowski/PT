@@ -29,6 +29,10 @@ namespace DataLayer.Implementation
                 bookToUpdate.Title = book.Title;
                 bookToUpdate.Category = book.Category;  
                 bookToUpdate.Publisher = book.Publisher;
+
+                int index = _libraryState.Books.IndexOf(bookToUpdate);
+
+                _libraryState.Books[index] = bookToUpdate;
             }
         }
 

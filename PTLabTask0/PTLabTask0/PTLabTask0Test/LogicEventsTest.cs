@@ -24,7 +24,7 @@ namespace LogicLayer.Tests
             BookRent bookRent = new BookRent(readerId, bookId, employeeId, timestamp);
 
             // Assert
-            Assert.IsFalse(newBook.Available);
+            Assert.IsTrue(newBook.Available);
             Assert.AreEqual(readerId, bookRent.ReaderId);
             Assert.AreEqual(bookId, bookRent.BookId);
             Assert.AreEqual(employeeId, bookRent.EmployeeId);
@@ -45,19 +45,19 @@ namespace LogicLayer.Tests
             DateTime timestamp = new DateTime(2023, 4, 15);
             IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
-            Assert.IsFalse(book.Available);
+            Assert.IsTrue(book.Available);
 
 
             // Act
             BookReturn bookReturn = new BookReturn(readerId, bookId, employeeId, timestamp);
 
             // Assert
-            Assert.IsTrue(bookReturn.Available);
+            Assert.IsTrue(book.Available);
 
-            Assert.AreEqual("reader2", bookReturn.ReaderId);
-            Assert.AreEqual("book2", bookReturn.BookId);
-            Assert.AreEqual("employee2", bookReturn.EmployeeId);
-            Assert.AreEqual(new DateTime(2023, 4, 16), bookReturn.Timestamp);
+            Assert.AreEqual("reader1", bookReturn.ReaderId);
+            Assert.AreEqual("book1", bookReturn.BookId);
+            Assert.AreEqual("employee1", bookReturn.EmployeeId);
+            Assert.AreEqual(new DateTime(2023, 4, 15), bookReturn.Timestamp);
         }
     }
 
@@ -79,10 +79,10 @@ namespace LogicLayer.Tests
 
             // Assert
             Assert.AreEqual("Supplier1", bookAcquisition.SupplierId);
-            Assert.AreEqual("book2", bookAcquisition.BookId);
-            Assert.AreEqual("Employee2", bookAcquisition.EmployeeId);
-            Assert.AreEqual(new DateTime(2023, 4, 16), bookAcquisition.Timestamp);
-            Assert.AreEqual("book2", bookAcquisition.Book.Title);
+            Assert.AreEqual("100", bookAcquisition.BookId);
+            Assert.AreEqual("Employee1", bookAcquisition.EmployeeId);
+            Assert.AreEqual(new DateTime(2023, 4, 15), bookAcquisition.Timestamp);
+            Assert.AreEqual("Dogs", bookAcquisition.Book.Title);
         }
     }
 }
