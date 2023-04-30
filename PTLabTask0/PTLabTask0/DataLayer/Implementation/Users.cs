@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Implementation
 {
-    public abstract class User: IUsers
+    internal abstract class User: IUsers
     {
         
         public string Name { get; set; }
@@ -24,7 +24,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class Person : User, IPerson
+    internal class Person : User, IPerson
     {
         public IPerson.PersonIdType PersonId { get; set; }
         public string Surname { get; set; }

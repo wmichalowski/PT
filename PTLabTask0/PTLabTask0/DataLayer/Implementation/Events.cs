@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataLayer.Implementation
 {
 
-    public class BookRent : IRent_Return
+    internal class BookRent : IRent_Return
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
@@ -24,7 +24,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookReturn : IRent_Return
+    internal class BookReturn : IRent_Return
     {
         public string ReaderId { get; set; }
         public string BookId { get; set; }
@@ -40,7 +40,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookAcquisition : IBookAcquisition
+    internal class BookAcquisition : IBookAcquisition
     {
         public string SupplierId { get; set; }
         public string BookId { get; set; }
@@ -59,7 +59,7 @@ namespace DataLayer.Implementation
         }
     }
 
-    public class BookDeletion: IBookDeletion
+    internal class BookDeletion: IBookDeletion
     {
         public string BookId { get; set; }
         public string EmployeeId { get; set; }

@@ -61,6 +61,7 @@ namespace LogicLayer.Tests
         }
     }
 
+
     [TestClass]
     public class BookAcquisitionTests
     {

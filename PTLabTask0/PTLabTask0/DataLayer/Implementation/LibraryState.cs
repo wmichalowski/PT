@@ -7,7 +7,7 @@ using DataLayer.API;
 
 namespace DataLayer.Implementation
 {
-    public class LibraryState: ILibraryState, IEventsRecording
+    internal class LibraryState: ILibraryState, IEventsRecording
     {
         public List<IBook> Books { get; set; }
         public List<ISupplier> Suppliers { get; set; }

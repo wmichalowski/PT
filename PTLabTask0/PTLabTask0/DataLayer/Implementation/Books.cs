@@ -2,7 +2,7 @@
 
 namespace DataLayer.Implementation
 {
-    public class Book: IBook
+    internal class Book: IBook
     {
         public string Title { get; set; }
         public string Author { get; set; }
@@ -19,6 +19,26 @@ namespace DataLayer.Implementation
             Publisher = publisher;
             Category = category;
             Available = available;
+        }
+
+        public override bool Equals(object? obj)
+        {
+
+            Book? book = obj as Book;
+
+            if (book == null) return false;
+
+            return this.Available == book.Available &&
+                this.Title == book.Title &&
+                this.Author == book.Author &&
+                this.BookId == book.BookId &&
+                this.Publisher == book.Publisher &&
+                this.Category == book.Category;
+        }
+
+        public override int GetHashCode()
+        {
+            return BookId.GetHashCode();
         }
     }
 
