@@ -10,7 +10,7 @@ namespace DataLayer.Implementation
 {
     internal class EmptyGenerate: IDataGenerator
     {
-        public void Generate(IDataRepository dataRepository)
+        public override void Generate(IDataRepository dataRepository)
         {
         }
     }
