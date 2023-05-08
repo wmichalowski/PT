@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Implementation;
+
 
 namespace DataLayer.API
 {
@@ -28,5 +30,10 @@ namespace DataLayer.API
         void UpdateSupplier(ISupplier supplier);
         void DeleteSupplier(string supplierId);
         ISupplier GetSupplierById(string supplierId);
+
+        public static IDataRepository CreateDataRepository(IDataGenerator? generator = default)
+        {
+            return new DataRepository(generator ?? new EmptyGenerate());
+        }
     }
 }

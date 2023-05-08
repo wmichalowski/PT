@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Implementation
 {
-
     internal class BookRent : IRent_Return
     {
         public string ReaderId { get; set; }

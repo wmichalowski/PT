@@ -13,6 +13,11 @@ namespace DataLayer.Implementation
 
         private readonly ILibraryState _libraryState;
 
+        public DataRepository(IDataGenerator generator)
+        {
+            generator.Generate(this);
+        }
+
         public DataRepository(ILibraryState libraryState)
         {
             _libraryState = libraryState;
