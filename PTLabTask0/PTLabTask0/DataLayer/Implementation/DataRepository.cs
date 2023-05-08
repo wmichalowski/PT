@@ -12,11 +12,9 @@ namespace DataLayer.Implementation
     {
 
         private readonly ILibraryState _libraryState;
-        private readonly DataContext dataContext;
 
         public DataRepository(IDataGenerator generator)
         {
-            dataContext = new DataContext();
             generator.Generate(this);
         }
 

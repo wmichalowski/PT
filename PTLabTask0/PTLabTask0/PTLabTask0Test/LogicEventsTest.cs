@@ -1,6 +1,4 @@
-﻿using System;
-using LogicLayer.Implementation;
-using DataLayer.API;
+﻿using DataLayer.API;
 using DataLayer.Implementation;
 
 namespace LogicLayer.Tests
