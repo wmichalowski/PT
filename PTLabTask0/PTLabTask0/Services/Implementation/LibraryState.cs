@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Service.API;
 using System.Text;
 using System.Threading.Tasks;
-using DataLayer.API;
+using Service.Model;
+using System.Runtime.CompilerServices;
 
-namespace DataLayer.Implementation
+namespace Services.Implementation
 {
-    internal class LibraryState: ILibraryState, IEventsRecording
+    internal class LibraryState: ILibraryState, IEventsRecording, IService
     {
+        private IDataContext dataContext;
+
+        internal DataService(IDataContext dataContext)
+        {
+            this.dataContext = dataContext;
+        }
+
         public List<IBook> Books { get; set; }
         public List<ISupplier> Suppliers { get; set; }
         public List<IPerson> Employees { get; set; }

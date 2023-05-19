@@ -1,6 +1,6 @@
 ﻿using DataLayer.Implementation;
 using System;
-namespace DataLayer.API
+namespace Services.API
 {
 	public interface IBook
 	{
@@ -10,6 +10,9 @@ namespace DataLayer.API
         public string Publisher { get; set; }
         public string Category { get; set; }
         public bool Available { get; set; }
+
+        Task AddAsync();
+        Task DeleteAsync();
 
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
-namespace DataLayer.API
+namespace Services.API
 {
 	public interface IEvent
 	{
         public string BookId { get; set; }
         public string EmployeeId { get; set; }
         public DateTime Timestamp { get; set; }
+
+        Task AddAsync();
     }
 
     public interface IRent_Return : IEvent

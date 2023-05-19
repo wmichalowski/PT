@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Implementation
+namespace Services.Implementation
 {
     internal class DataRepository: IDataRepository
     {

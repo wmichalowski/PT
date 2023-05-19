@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DataLayer.API {
+namespace Services.API {
 
     public interface IUsers
     {
@@ -7,6 +7,9 @@ namespace DataLayer.API {
         string Address { get; set; }
         string PhoneNumber { get; set; }
         string Email { get; set; }
+
+        Task AddAsync();
+        Task DeleteAsync();
 
     }
 

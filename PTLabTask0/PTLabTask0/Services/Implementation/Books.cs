@@ -1,6 +1,6 @@
 ﻿using DataLayer.API;
 
-namespace DataLayer.Implementation
+namespace Services.Implementation
 {
     internal class Book: IBook
     {

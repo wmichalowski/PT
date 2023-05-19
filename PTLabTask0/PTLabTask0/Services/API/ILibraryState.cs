@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.API
+namespace Services.API
 {
     public interface ILibraryState
     {
@@ -14,6 +14,9 @@ namespace DataLayer.API
         public List<IPerson> Employees { get; set; }
         public List<IPerson> Readers { get; set; }
         public List<IEvent> Events { get; set; }
+
+        Task AddAsync();
+        Task DeleteAsync();
 
     }
 }
