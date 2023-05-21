@@ -1,8 +1,10 @@
 ﻿using DataLayer.Implementation;
 using System;
+using System.Data.Linq.Mapping;
+
 namespace DataLayer.API
 {
-	public interface IBook
+    public interface IBook
 	{
         public string Title { get; set; }
         public string Author { get; set; }

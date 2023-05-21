@@ -1,7 +1,9 @@
 ﻿using DataLayer.API;
+using System.Data.Linq.Mapping;
 
 namespace DataLayer.Implementation
 {
+    [Table(Name = "Book")]
     internal class Book: IBook
     {
         public string Title { get; set; }
