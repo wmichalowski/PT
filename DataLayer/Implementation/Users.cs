@@ -4,50 +4,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Linq.Mapping;
 
 namespace DataLayer.Implementation
 {
-    internal abstract class User: IUsers
+    [Table(Name = "Employees")]
+    public class Person: IPerson
     {
-        
+        [Column(Name = "Name")]
         public string Name { get; set; }
+        [Column(Name = "Surname")]
+        public string Surname { get; set; }
+        [Column(Name = "Address")]
         public string Address { get; set; }
+        [Column(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
+        [Column(Name = "Email")]
         public string Email { get; set; }
+        [Column(Name = "EmployeeId")]
+        public string PersonId { get; set; }
 
-        protected User(string name, string address, string phoneNumber, string email)
+
+        public Person(string personId, string name, string address, string phoneNumber, string email, string surname) 
         {
+            PersonId = personId;
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Surname = surname;
+        }
+    }
+
+    [Table(Name = "Employees")]
+    public class Supplier: ISupplier
+    {
+        public Supplier(string supplierId, string name, string address, string phoneNumber, string email) 
+        {
+            SupplierId = supplierId;
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
             Email = email;
         }
-    }
 
-    internal class Person : User, IPerson
-    {
-        public IPerson.PersonIdType PersonId { get; set; }
-        public string Surname { get; set; }
-        public IPerson.RoleType Role { get; set; }
-
-        public Person(IPerson.PersonIdType personId, string name, string address, string phoneNumber, string email, string surname, IPerson.RoleType role) 
-            : base(name, address, phoneNumber, email)
-        {
-            Surname = surname;
-            PersonId = personId;
-            Role = role;
-        }
-    }
-
-    internal class Supplier: User, ISupplier
-    {
-        public Supplier(string supplierId, string name, string address, string phoneNumber, string email) 
-            : base(name, address, phoneNumber, email)
-        {
-            SupplierId = supplierId;
-        }
-
+        [Column(Name = "SupplierId")]
         public string SupplierId { get; set; }
+        [Column(Name = "Name")]
+        public string Name { get; set; }
+        [Column(Name = "Address")]
+        public string Address { get; set; }
+        [Column(Name = "PhoneNumber")]
+        public string PhoneNumber { get; set; }
+        [Column(Name = "Email")]
+        public string Email { get; set; }
 
     }
 }

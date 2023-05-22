@@ -3,17 +3,30 @@ using System.Data.Linq.Mapping;
 
 namespace DataLayer.Implementation
 {
-    [Table(Name = "Book")]
-    internal class Book: IBook
+    [Table(Name = "Books")]
+    public class Book: IBook
     {
+        [Column(Name = "Title")]
         public string Title { get; set; }
+
+        [Column(Name = "Author")]
         public string Author { get; set; }
+
+        [Column(Name = "BookId", IsPrimaryKey = true)]
         public string BookId { get; set; }
+
+        [Column(Name = "Publisher")]
         public string Publisher { get; set; }
+
+        [Column(Name = "Category")]
         public string Category { get; set; }
+
+        [Column(Name = "Available")]
         public bool Available { get; set; }
 
-        public Book(string title, string author, string bookId, string publisher, string category, bool available)
+        public Book() { }
+
+    public Book(string title, string author, string bookId, string publisher, string category, bool available)
         {
             Title = title;
             Author = author;

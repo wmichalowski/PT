@@ -16,7 +16,7 @@ namespace LogicLayer.Implementation
             _events = events;
         }
 
-        public void BookAcquisition(IBook book, string supplierId, string employeeId)
+        public void BookAcquisition(Book book, string supplierId, string employeeId)
         {
             if (_dataRepository.GetBookById(book.BookId) == null)
             {
@@ -29,7 +29,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void UpdateBook(IBook book)
+        public void UpdateBook(Book book)
         {
             if (_dataRepository.GetBookById(book.BookId) != null)
             {
@@ -48,7 +48,7 @@ namespace LogicLayer.Implementation
 
         public void BookRent(string bookId, string readerId, string employeeId)
         {
-            IBook bookToRent = _dataRepository.GetBookById(bookId);
+            Book bookToRent = _dataRepository.GetBookById(bookId);
             if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == true)
             {
                 bookToRent.Available = false;
@@ -58,7 +58,7 @@ namespace LogicLayer.Implementation
 
         public void BookReturn(string bookId, string readerId, string employeeId)
         {
-            IBook bookToRent = _dataRepository.GetBookById(bookId);
+            Book bookToRent = _dataRepository.GetBookById(bookId);
 
             if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == false)
             {
@@ -68,13 +68,13 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public IBook? GetBookById(string bookId)
+        public Book? GetBookById(string bookId)
         {
             var book = _dataRepository.GetBookById(bookId);
             return book ?? throw new ArgumentException("Book not found.");
         }
 
-        public void AddReader(IPerson person)
+        public void AddReader(Person person)
         {
             if (_dataRepository.GetReaderById(person.PersonId) == null)
             {
@@ -82,7 +82,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void UpdateReader(IPerson person)
+        public void UpdateReader(Person person)
         {
             if (_dataRepository.GetReaderById(person.PersonId) != null)
             {
@@ -90,7 +90,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void DeleteReader(IPerson.PersonIdType personId)
+        public void DeleteReader(string personId)
         {
             if (_dataRepository.GetReaderById(personId) != null)
             {
@@ -98,13 +98,13 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public IPerson? GetReaderById(IPerson.PersonIdType personId)
+        public Person? GetReaderById(string personId)
         {
             var person = _dataRepository.GetReaderById(personId);
             return person ?? throw new ArgumentException("Person not found");
         }
 
-        public void AddEmployee(IPerson person)
+        public void AddEmployee(Person person)
         {
             if (_dataRepository.GetReaderById(person.PersonId) == null)
             {
@@ -112,7 +112,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void UpdateEmployee(IPerson person)
+        public void UpdateEmployee(Person person)
         {
             if (_dataRepository.GetReaderById(person.PersonId) != null)
             {
@@ -120,7 +120,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void DeleteEmployee(IPerson.PersonIdType personId)
+        public void DeleteEmployee(string personId)
         {
             if (_dataRepository.GetEmployeeById(personId) != null)
             {
@@ -128,13 +128,13 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public IPerson? GetEmployeeById(IPerson.PersonIdType personId)
+        public Person? GetEmployeeById(string personId)
         {
             var employee = _dataRepository.GetEmployeeById(personId);
             return employee ?? throw new ArgumentException("no such employee");
         }
 
-        public void AddSupplier(ISupplier supplier)
+        public void AddSupplier(Supplier supplier)
         {
             if (_dataRepository.GetSupplierById(supplier.SupplierId) == null)
             {
@@ -142,7 +142,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void UpdateSupplier(ISupplier supplier)
+        public void UpdateSupplier(Supplier supplier)
         {
             if (_dataRepository.GetSupplierById(supplier.SupplierId) != null)
             {
@@ -158,7 +158,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public ISupplier? GetSupplierById(string supplierId)
+        public Supplier? GetSupplierById(string supplierId)
         {
             var supplier = _dataRepository.GetSupplierById(supplierId);
             return supplier ?? throw new ArgumentException("no such supplier");

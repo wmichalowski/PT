@@ -11,25 +11,25 @@ namespace DataLayer.API
     public interface IDataRepository
     {
 
-        void AddBook(IBook book);
-        void UpdateBook(IBook book);
+        void AddBook(Book book);
+        void UpdateBook(Book book);
         void DeleteBook(string bookId);
-        IBook GetBookById(string bookId);
+        Book GetBookById(string bookId);
 
-        void AddReader(IPerson person);
-        void UpdateReader(IPerson person);
-        void DeleteReader(IPerson.PersonIdType personId);
-        IPerson GetReaderById(IPerson.PersonIdType personId);
+        void AddReader(Person person);
+        void UpdateReader(Person person);
+        void DeleteReader(string personId);
+        Person GetReaderById(string personId);
 
-        void AddEmployee(IPerson person);
-        void UpdateEmployee(IPerson person);
-        void DeleteEmployee(IPerson.PersonIdType personId);
-        IPerson GetEmployeeById(IPerson.PersonIdType personId);
+        void AddEmployee(Person person);
+        void UpdateEmployee(Person person);
+        void DeleteEmployee(string personId);
+        Person GetEmployeeById(string personId);
 
-        void AddSupplier(ISupplier supplier);
-        void UpdateSupplier(ISupplier supplier);
+        void AddSupplier(Supplier supplier);
+        void UpdateSupplier(Supplier supplier);
         void DeleteSupplier(string supplierId);
-        ISupplier GetSupplierById(string supplierId);
+        Supplier GetSupplierById(string supplierId);
 
         public static IDataRepository CreateDataRepository(IDataGenerator? generator = default)
         {

@@ -13,15 +13,25 @@ namespace LogicLayer.Implementation.Tests
         private ILogic _logic;
         private IEventsRecording _events;
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            _libraryState = new LibraryState();
+            DataContext _context = new DataContext("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            _dataRepository = new DataRepository(_context);
+            _events = new LibraryState();
+            _logic = new Logic(_dataRepository, _events);
+        }
+
         [TestMethod]
         public void UpdateBook_BookExists_UpdatesBook()
         {
             // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             _dataRepository.AddBook(book);
 
-            IBook bookUpdated = new Book("Cats", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book bookUpdated = new Book("Cats", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             // Act
             _logic.UpdateBook(bookUpdated);
@@ -34,6 +44,7 @@ namespace LogicLayer.Implementation.Tests
             Assert.AreEqual(bookUpdated.Publisher, result.Publisher);
             Assert.AreEqual(bookUpdated.Category, result.Category);
             Assert.AreEqual(bookUpdated.Available, result.Available);
+            _dataRepository.DeleteBook("100");
         }
 
         [TestMethod]
@@ -41,9 +52,9 @@ namespace LogicLayer.Implementation.Tests
         public void UpdateBook_BookDoesNotExist_DoesNotUpdateBook_ThrowsException()
         {
             // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
-            IBook bookUpdated = new Book("Cats", "Alice Smith", "10", "CoolPublisher", "Encyclopedia", true);
+            Book bookUpdated = new Book("Cats", "Alice Smith", "10", "CoolPublisher", "Encyclopedia", true);
 
             // Act
             _logic.UpdateBook(bookUpdated);
@@ -51,26 +62,19 @@ namespace LogicLayer.Implementation.Tests
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
             Assert.AreEqual(book, result);
-        }
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _libraryState = new LibraryState(); 
-            _dataRepository = new DataRepository(_libraryState);
-            _events = new LibraryState();
-            _logic = new Logic(_dataRepository, _events);
+            _dataRepository.DeleteBook("100");
         }
 
         [TestMethod]
         public void BookAcquisition_BookAlreadyExists_ThrowsException()
         {
             // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
             _dataRepository.AddBook(book);
 
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => _logic.BookAcquisition(book, "Supplier1", "Emplyee1"));
+            _dataRepository.DeleteBook("100");
         }
 
         [TestMethod]
@@ -78,7 +82,7 @@ namespace LogicLayer.Implementation.Tests
         public void AddBook_BookExists_DoesNotAddBook()
         {
             // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             _dataRepository.AddBook(book);
 
@@ -88,6 +92,7 @@ namespace LogicLayer.Implementation.Tests
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
             Assert.AreEqual(book, result);
+            _dataRepository.DeleteBook("100");
         }
 
 
@@ -96,7 +101,7 @@ namespace LogicLayer.Implementation.Tests
         public void DeleteBook_BookExists_DeletesBook()
         {
             // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             _dataRepository.AddBook(book);
 
@@ -105,6 +110,7 @@ namespace LogicLayer.Implementation.Tests
 
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
+            _dataRepository.DeleteBook("100");
         }
 
         [TestMethod]
@@ -112,7 +118,7 @@ namespace LogicLayer.Implementation.Tests
         public void BookDeletion_BookDoesNotExist_DoesNotDeleteBook()
         {
             // Arrange
-            IBook book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
             // Act
             _logic.BookDeletion(book.BookId, "Emplyee1");
@@ -120,6 +126,7 @@ namespace LogicLayer.Implementation.Tests
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
             Assert.AreEqual(book, result);
+            _dataRepository.DeleteBook("100");
 
         }
 

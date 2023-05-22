@@ -1,8 +1,11 @@
 ﻿using DataLayer.API;
+using DataLayer.DB;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Linq;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +15,7 @@ namespace DataLayer.Implementation
     {
 
         private readonly ILibraryState _libraryState;
+        private readonly DataContext _context;
 
         public DataRepository(IDataGenerator generator)
         {
@@ -23,122 +27,157 @@ namespace DataLayer.Implementation
             _libraryState = libraryState;
         }
 
-        public void AddBook(IBook book) {
-            _libraryState.Books.Add(book);
+        public DataRepository(DataContext dataContext) {
+            _context = dataContext;
         }
-        public void UpdateBook(IBook book) { 
-            IBook bookToUpdate = _libraryState.Books.FirstOrDefault(x => x.BookId == book.BookId) ?? throw new ArgumentException("Book not found");
+
+        public void AddBook(Book book) {
+
+            if(_context.Books.FirstOrDefault(b => b.BookId == book.BookId) == null)
+            {
+                _context.Books.InsertOnSubmit(book);
+                _context.SubmitChanges();   
+            }
+             
+        }
+
+        public void UpdateBook(Book book)
+        {
+            Book bookToUpdate = _context.Books.FirstOrDefault(b => b.BookId == book.BookId) ?? throw new ArgumentException("Book not found");
             if (bookToUpdate != null)
             {
                 bookToUpdate.Author = book.Author;
                 bookToUpdate.Title = book.Title;
-                bookToUpdate.Category = book.Category;  
+                bookToUpdate.Category = book.Category;
                 bookToUpdate.Publisher = book.Publisher;
 
-                int index = _libraryState.Books.IndexOf(bookToUpdate);
-
-                _libraryState.Books[index] = bookToUpdate;
+                _context.SubmitChanges();
+            }
+            else
+            {
+                throw new ArgumentException("Book not found");
             }
         }
-
-
 
         public void DeleteBook(string bookId)
         {
-            IBook bookToDelete = _libraryState.Books.FirstOrDefault(x => x.BookId == bookId) ?? throw new ArgumentException("Book not found");
+            Book bookToDelete = _context.Books.FirstOrDefault(b => b.BookId == bookId) ?? throw new ArgumentException("Book not found");
             if (bookToDelete != null)
             {
-                _libraryState.Books.Remove(bookToDelete);
+                _context.Books.DeleteOnSubmit(bookToDelete);
+                _context.SubmitChanges();
+            }
+            else
+            {
+                throw new ArgumentException("Book not found");
             }
         }
-        public IBook GetBookById(string bookId)
-        {
-            return _libraryState.Books.FirstOrDefault(x => x.BookId == bookId) ?? throw new ArgumentException("Book not found");
+
+
+        public Book GetBookById(string bookId) {
+            Book returnedBook = _context.Books.FirstOrDefault(b => b.BookId == bookId) ?? throw new ArgumentException("Book not found");
+            if (returnedBook != null)
+            {
+                return returnedBook;
+            }
+            else
+            {
+                throw new ArgumentException("Book not found");
+            }
         }
 
-        public void AddReader(IPerson person) { 
-            _libraryState.Readers.Add(person);
+        public void AddReader(Person person) {
+            _context.Readers.InsertOnSubmit(person);
+            _context.SubmitChanges();
         }
-        public void UpdateReader(IPerson person) { 
-            IPerson readerToUpdate = _libraryState.Readers.FirstOrDefault(x => x.PersonId == person.PersonId) ?? throw new ArgumentException("Person not found");
+        public void UpdateReader(Person person) { 
+            Person readerToUpdate = _context.Readers.FirstOrDefault(b => b.PersonId == person.PersonId) ?? throw new ArgumentException("Person not found");
             if(readerToUpdate != null)
             {
                 readerToUpdate.Name = person.Name; 
                 readerToUpdate.Surname = person.Surname;  
                 readerToUpdate.Address = person.Address;
                 readerToUpdate.PhoneNumber = person.PhoneNumber;
-                readerToUpdate.Role = person.Role;
                 readerToUpdate.Email = person.Email;
+
+                _context.SubmitChanges();
             }
         }
-        public void DeleteReader(IPerson.PersonIdType personId) {
-            IPerson readerToDelete = _libraryState.Readers.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+        public void DeleteReader(string personId) {
+            Person readerToDelete = _context.Readers.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
             if ( readerToDelete != null)
             {
-                _libraryState.Readers.Remove(readerToDelete);
+                _context.Readers.DeleteOnSubmit(readerToDelete);
+                _context.SubmitChanges();
             }
         }
-        public IPerson GetReaderById(IPerson.PersonIdType personId)
+        public Person GetReaderById(string personId)
         {
-            return _libraryState.Readers.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            return _context.Readers.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
         }
 
-        public void AddEmployee(IPerson person)
+        public void AddEmployee(Person person)
         {
-            _libraryState.Employees.Add(person);
+            _context.Employees.InsertOnSubmit(person);
+            _context.SubmitChanges();
         }
-        public void UpdateEmployee(IPerson person)
+        public void UpdateEmployee(Person person)
         {
-            IPerson employeeToUpdate = _libraryState.Employees.FirstOrDefault(x => x.PersonId==person.PersonId) ?? throw new ArgumentException("Person not found");
+            Person employeeToUpdate = _context.Employees.FirstOrDefault(x => x.PersonId == person.PersonId) ?? throw new ArgumentException("Person not found");
             if (employeeToUpdate != null)
             {
                 employeeToUpdate.Name = person.Name;
                 employeeToUpdate.Surname = person.Surname;
                 employeeToUpdate.Address = person.Address;
                 employeeToUpdate.PhoneNumber = person.PhoneNumber;
-                employeeToUpdate.Role = person.Role;
                 employeeToUpdate.Email = person.Email;
+                _context.SubmitChanges();
             }
         }
-        public void DeleteEmployee(IPerson.PersonIdType personId)
+        public void DeleteEmployee(string personId)
         {
-            IPerson readerToDelete = _libraryState.Employees.FirstOrDefault(x=>x.PersonId==personId) ?? throw new ArgumentException("Person not found");
-            if (readerToDelete != null)
+            Person employeeToDelete = _context.Employees.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            if (employeeToDelete != null)
             {
-                _libraryState.Employees.Remove(readerToDelete);
+                _context.Employees.DeleteOnSubmit(employeeToDelete);
+                _context.SubmitChanges();
             }
         }
-        public IPerson GetEmployeeById(IPerson.PersonIdType personId)
+        public Person GetEmployeeById(string personId)
         {
-            return _libraryState.Employees.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            return _context.Employees.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
         }
 
-        public void AddSupplier(ISupplier supplier)
+        public void AddSupplier(Supplier supplier)
         {
-            _libraryState.Suppliers.Add(supplier);
+            _context.Suppliers.InsertOnSubmit(supplier);
+            _context.SubmitChanges();
         }
-        public void UpdateSupplier(ISupplier supplier)
+        public void UpdateSupplier(Supplier supplier)
         {
-            ISupplier supplierToUpdate = _libraryState.Suppliers.FirstOrDefault(x => x.SupplierId == supplier.SupplierId) ?? throw new ArgumentException("Supplier not found");
+            Supplier supplierToUpdate = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplier.SupplierId) ?? throw new ArgumentException("Supplier not found");
             if (supplierToUpdate != null)
             {
                 supplierToUpdate.Name = supplier.Name;
                 supplierToUpdate.Email = supplier.Email;
                 supplierToUpdate.Address = supplier.Address;
                 supplierToUpdate.PhoneNumber = supplier.PhoneNumber;
+
+                _context.SubmitChanges();
             }
         }
         public void DeleteSupplier(string supplierId)
         {
-            ISupplier supplierToDelete = _libraryState.Suppliers.FirstOrDefault(x=>x.SupplierId==supplierId) ?? throw new ArgumentException("Supplier not found");
+            Supplier supplierToDelete = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId) ?? throw new ArgumentException("Supplier not found");
             if (supplierToDelete != null)
             {
-                _libraryState.Suppliers.Remove(supplierToDelete);
+                _context.Suppliers.DeleteOnSubmit(supplierToDelete);
+                _context.SubmitChanges();
             }
         }
-        public ISupplier GetSupplierById(string supplierId)
+        public Supplier GetSupplierById(string supplierId)
         {
-            return _libraryState.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId) ?? throw new ArgumentException("Supplier not found");
+            return _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId) ?? throw new ArgumentException("Supplier not found");
         }
 
     }

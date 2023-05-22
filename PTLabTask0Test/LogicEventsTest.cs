@@ -6,6 +6,19 @@ namespace LogicLayer.Tests
     [TestClass]
     public class BookRentTests
     {
+        private IDataRepository _dataRepository;
+        public ILibraryState _libraryState;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _libraryState = new LibraryState();
+            DataContext _context = new DataContext("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            _dataRepository = new DataRepository(_context);
+        }
+
+
+
         [TestMethod]
         public void BookRent_Constructor_InitializesProperties()
         {

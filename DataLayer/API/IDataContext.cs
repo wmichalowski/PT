@@ -12,6 +12,9 @@ namespace DataLayer.API
     public interface IDataContext
     {
         public Table<Book> Books { get; }
+        public Table<Person> Readers { get; }
+        public Table<Person> Employees { get; }
+        public Table<Supplier> Suppliers { get; }
 
     }
 }

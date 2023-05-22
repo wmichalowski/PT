@@ -1,4 +1,5 @@
 ﻿using DataLayer.API;
+using DataLayer.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,27 @@ namespace LogicLayer.API
 {
     public interface ILogic
     {
-        void BookAcquisition(IBook book, string supplierId, string employeeId);
-        void UpdateBook(IBook book);
+        void BookAcquisition(Book book, string supplierId, string employeeId);
+        void UpdateBook(Book book);
         void BookDeletion(string bookId, string employeeId);
-        IBook? GetBookById(string bookId);
+        Book? GetBookById(string bookId);
 
         void BookRent(string bookId, string readerId, string employeeId);
         void BookReturn(string bookId, string readerId, string employeeId);
 
-        void AddReader(IPerson person);
-        void UpdateReader(IPerson person);
-        void DeleteReader(IPerson.PersonIdType personId);
-        IPerson? GetReaderById(IPerson.PersonIdType personId);
+        void AddReader(Person person);
+        void UpdateReader(Person person);
+        void DeleteReader(string personId);
+        Person? GetReaderById(string personId);
 
-        void AddEmployee(IPerson person);
-        void UpdateEmployee(IPerson person);
-        void DeleteEmployee(IPerson.PersonIdType personId);
-        IPerson? GetEmployeeById(IPerson.PersonIdType personId);
+        void AddEmployee(Person person);
+        void UpdateEmployee(Person person);
+        void DeleteEmployee(string personId);
+        Person? GetEmployeeById(string personId);
 
-        void AddSupplier(ISupplier supplier);
-        void UpdateSupplier(ISupplier supplier);
+        void AddSupplier(Supplier supplier);
+        void UpdateSupplier(Supplier supplier);
         void DeleteSupplier(string supplierId);
-        ISupplier? GetSupplierById(string supplierId);
+        Supplier? GetSupplierById(string supplierId);
     }
 }
