@@ -1,5 +1,4 @@
-﻿using DataLayer.Implementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
@@ -11,10 +10,12 @@ namespace DataLayer.API
 {
     public interface IDataContext
     {
-        public Table<Book> Books { get; }
-        public Table<Person> Readers { get; }
-        public Table<Person> Employees { get; }
-        public Table<Supplier> Suppliers { get; }
-
+        public IQueryable<IBook> Books { get; }
+        public IQueryable<IReader> Readers { get; }
+        public IQueryable<IEmployee> Employees { get; }
+        public IQueryable<ISupplier> Suppliers { get; }
+        public IQueryable<IRent_Return> Event_RentsReturns { get; }
+        public IQueryable<IBookDeletion> Event_BookDeletions { get; }
+        public IQueryable<IBookAcquisition> Event_BookAcquisitions { get; }
     }
 }

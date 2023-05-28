@@ -3,9 +3,20 @@ using System.Data.Linq.Mapping;
 
 namespace DataLayer.API {
 
-    public interface IPerson
+    public interface IReader
     {
-        string PersonId { get; set; }
+        string ReaderId { get; set; }
+        string Name { get; set; }
+        string Surname { get; set; }
+        string Address { get; set; }
+        string PhoneNumber { get; set; }
+        string Email { get; set; }
+
+    }
+
+    public interface IEmployee
+    {
+        string EmployeeId { get; set; }
         string Name { get; set; }
         string Surname { get; set; }
         string Address { get; set; }

@@ -1,27 +1,14 @@
 ﻿using DataLayer.API;
-using System.Data.Linq.Mapping;
 
 namespace DataLayer.Implementation
 {
-    [Table(Name = "Books")]
     public class Book: IBook
     {
-        [Column(Name = "Title")]
         public string Title { get; set; }
-
-        [Column(Name = "Author")]
         public string Author { get; set; }
-
-        [Column(Name = "BookId", IsPrimaryKey = true)]
         public string BookId { get; set; }
-
-        [Column(Name = "Publisher")]
         public string Publisher { get; set; }
-
-        [Column(Name = "Category")]
         public string Category { get; set; }
-
-        [Column(Name = "Available")]
         public bool Available { get; set; }
 
         public Book() { }
@@ -38,22 +25,51 @@ namespace DataLayer.Implementation
 
         public override bool Equals(object? obj)
         {
+            if (obj is not Book book)
+                return false;
 
-            Book? book = obj as Book;
+            if (Title != book.Title)
+            {
+                Console.WriteLine($"Title mismatch: Expected '{Title}', Actual '{book.Title}'");
+                return false;
+            }
 
-            if (book == null) return false;
+            if (Author != book.Author)
+            {
+                Console.WriteLine($"Author mismatch: Expected '{Author}', Actual '{book.Author}'");
+                return false;
+            }
 
-            return this.Available == book.Available &&
-                this.Title == book.Title &&
-                this.Author == book.Author &&
-                this.BookId == book.BookId &&
-                this.Publisher == book.Publisher &&
-                this.Category == book.Category;
+            if (BookId != book.BookId)
+            {
+                Console.WriteLine($"BookId mismatch: Expected '{BookId}', Actual '{book.BookId}'");
+                return false;
+            }
+
+            if (Publisher != book.Publisher)
+            {
+                Console.WriteLine($"Publisher mismatch: Expected '{Publisher}', Actual '{book.Publisher}'");
+                return false;
+            }
+
+            if (Category != book.Category)
+            {
+                Console.WriteLine($"Category mismatch: Expected '{Category}', Actual '{book.Category}'");
+                return false;
+            }
+
+            if (Available != book.Available)
+            {
+                Console.WriteLine($"Available mismatch: Expected '{Available}', Actual '{book.Available}'");
+                return false;
+            }
+
+            return true;
         }
 
         public override int GetHashCode()
         {
-            return BookId.GetHashCode();
+            return HashCode.Combine(Title, Author, BookId, Publisher, Category, Available);
         }
     }
 

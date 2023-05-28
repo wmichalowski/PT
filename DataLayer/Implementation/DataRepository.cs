@@ -1,17 +1,8 @@
 ﻿using DataLayer.API;
-using DataLayer.DB;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Linq;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataLayer.Implementation
 {
-    internal class DataRepository: IDataRepository
+    public class DataRepository: IDataRepository, IEventsRecording
     {
 
         private readonly ILibraryState _libraryState;
@@ -22,28 +13,23 @@ namespace DataLayer.Implementation
             generator.Generate(this);
         }
 
-        public DataRepository(ILibraryState libraryState)
-        {
-            _libraryState = libraryState;
-        }
-
         public DataRepository(DataContext dataContext) {
             _context = dataContext;
         }
 
-        public void AddBook(Book book) {
+        public void AddBook(IBook book) {
 
             if(_context.Books.FirstOrDefault(b => b.BookId == book.BookId) == null)
             {
-                _context.Books.InsertOnSubmit(book);
-                _context.SubmitChanges();   
+                _context.Books.Add((Book)book);
+                _context.SaveChanges();   
             }
              
         }
 
-        public void UpdateBook(Book book)
+        public void UpdateBook(IBook book)
         {
-            Book bookToUpdate = _context.Books.FirstOrDefault(b => b.BookId == book.BookId) ?? throw new ArgumentException("Book not found");
+            IBook bookToUpdate = _context.Books.FirstOrDefault(b => b.BookId == book.BookId) ?? throw new ArgumentException("Book not found");
             if (bookToUpdate != null)
             {
                 bookToUpdate.Author = book.Author;
@@ -51,7 +37,7 @@ namespace DataLayer.Implementation
                 bookToUpdate.Category = book.Category;
                 bookToUpdate.Publisher = book.Publisher;
 
-                _context.SubmitChanges();
+                _context.SaveChanges();
             }
             else
             {
@@ -61,11 +47,11 @@ namespace DataLayer.Implementation
 
         public void DeleteBook(string bookId)
         {
-            Book bookToDelete = _context.Books.FirstOrDefault(b => b.BookId == bookId) ?? throw new ArgumentException("Book not found");
+            IBook bookToDelete = _context.Books.FirstOrDefault(b => b.BookId == bookId) ?? throw new ArgumentException("Book not found");
             if (bookToDelete != null)
             {
-                _context.Books.DeleteOnSubmit(bookToDelete);
-                _context.SubmitChanges();
+                _context.Books.Remove((Book)bookToDelete);
+                _context.SaveChanges();
             }
             else
             {
@@ -74,8 +60,8 @@ namespace DataLayer.Implementation
         }
 
 
-        public Book GetBookById(string bookId) {
-            Book returnedBook = _context.Books.FirstOrDefault(b => b.BookId == bookId) ?? throw new ArgumentException("Book not found");
+        public IBook GetBookById(string bookId) {
+            IBook returnedBook = _context.Books.FirstOrDefault(b => b.BookId == bookId) ?? throw new ArgumentException("Book not found");
             if (returnedBook != null)
             {
                 return returnedBook;
@@ -86,12 +72,12 @@ namespace DataLayer.Implementation
             }
         }
 
-        public void AddReader(Person person) {
-            _context.Readers.InsertOnSubmit(person);
-            _context.SubmitChanges();
+        public void AddReader(IReader person) {
+            _context.Readers.Add((Reader)person);
+            _context.SaveChanges();
         }
-        public void UpdateReader(Person person) { 
-            Person readerToUpdate = _context.Readers.FirstOrDefault(b => b.PersonId == person.PersonId) ?? throw new ArgumentException("Person not found");
+        public void UpdateReader(IReader person) { 
+            IReader readerToUpdate = _context.Readers.FirstOrDefault(b => b.ReaderId == person.ReaderId) ?? throw new ArgumentException("Person not found");
             if(readerToUpdate != null)
             {
                 readerToUpdate.Name = person.Name; 
@@ -100,30 +86,30 @@ namespace DataLayer.Implementation
                 readerToUpdate.PhoneNumber = person.PhoneNumber;
                 readerToUpdate.Email = person.Email;
 
-                _context.SubmitChanges();
+                _context.SaveChanges();
             }
         }
         public void DeleteReader(string personId) {
-            Person readerToDelete = _context.Readers.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            IReader readerToDelete = _context.Readers.FirstOrDefault(x => x.ReaderId == personId) ?? throw new ArgumentException("Person not found");
             if ( readerToDelete != null)
             {
-                _context.Readers.DeleteOnSubmit(readerToDelete);
-                _context.SubmitChanges();
+                _context.Readers.Remove((Reader)readerToDelete);
+                _context.SaveChanges();
             }
         }
-        public Person GetReaderById(string personId)
+        public IReader GetReaderById(string personId)
         {
-            return _context.Readers.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            return _context.Readers.FirstOrDefault(x => x.ReaderId == personId) ?? throw new ArgumentException("Person not found");
         }
 
-        public void AddEmployee(Person person)
+        public void AddEmployee(IEmployee person)
         {
-            _context.Employees.InsertOnSubmit(person);
-            _context.SubmitChanges();
+            _context.Employees.Add((Employee)person);
+            _context.SaveChanges();
         }
-        public void UpdateEmployee(Person person)
+        public void UpdateEmployee(IEmployee person)
         {
-            Person employeeToUpdate = _context.Employees.FirstOrDefault(x => x.PersonId == person.PersonId) ?? throw new ArgumentException("Person not found");
+            IEmployee employeeToUpdate = _context.Employees.FirstOrDefault(x => x.EmployeeId == person.EmployeeId) ?? throw new ArgumentException("Person not found");
             if (employeeToUpdate != null)
             {
                 employeeToUpdate.Name = person.Name;
@@ -131,31 +117,31 @@ namespace DataLayer.Implementation
                 employeeToUpdate.Address = person.Address;
                 employeeToUpdate.PhoneNumber = person.PhoneNumber;
                 employeeToUpdate.Email = person.Email;
-                _context.SubmitChanges();
+                _context.SaveChanges();
             }
         }
         public void DeleteEmployee(string personId)
         {
-            Person employeeToDelete = _context.Employees.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            IEmployee employeeToDelete = _context.Employees.FirstOrDefault(x => x.EmployeeId == personId) ?? throw new ArgumentException("Person not found");
             if (employeeToDelete != null)
             {
-                _context.Employees.DeleteOnSubmit(employeeToDelete);
-                _context.SubmitChanges();
+                _context.Employees.Remove((Employee)employeeToDelete);
+                _context.SaveChanges();
             }
         }
-        public Person GetEmployeeById(string personId)
+        public IEmployee GetEmployeeById(string personId)
         {
-            return _context.Employees.FirstOrDefault(x => x.PersonId == personId) ?? throw new ArgumentException("Person not found");
+            return _context.Employees.FirstOrDefault(x => x.EmployeeId == personId) ?? throw new ArgumentException("Person not found");
         }
 
-        public void AddSupplier(Supplier supplier)
+        public void AddSupplier(ISupplier supplier)
         {
-            _context.Suppliers.InsertOnSubmit(supplier);
-            _context.SubmitChanges();
+            _context.Suppliers.Add((Supplier)supplier);
+            _context.SaveChanges();
         }
-        public void UpdateSupplier(Supplier supplier)
+        public void UpdateSupplier(ISupplier supplier)
         {
-            Supplier supplierToUpdate = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplier.SupplierId) ?? throw new ArgumentException("Supplier not found");
+            ISupplier supplierToUpdate = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplier.SupplierId) ?? throw new ArgumentException("Supplier not found");
             if (supplierToUpdate != null)
             {
                 supplierToUpdate.Name = supplier.Name;
@@ -163,21 +149,48 @@ namespace DataLayer.Implementation
                 supplierToUpdate.Address = supplier.Address;
                 supplierToUpdate.PhoneNumber = supplier.PhoneNumber;
 
-                _context.SubmitChanges();
+                _context.SaveChanges();
             }
         }
         public void DeleteSupplier(string supplierId)
         {
-            Supplier supplierToDelete = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId) ?? throw new ArgumentException("Supplier not found");
+            ISupplier supplierToDelete = _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId) ?? throw new ArgumentException("Supplier not found");
             if (supplierToDelete != null)
             {
-                _context.Suppliers.DeleteOnSubmit(supplierToDelete);
-                _context.SubmitChanges();
+                _context.Suppliers.Remove((Supplier)supplierToDelete);
+                _context.SaveChanges();
             }
         }
-        public Supplier GetSupplierById(string supplierId)
+        public ISupplier GetSupplierById(string supplierId)
         {
             return _context.Suppliers.FirstOrDefault(x => x.SupplierId == supplierId) ?? throw new ArgumentException("Supplier not found");
+        }
+
+        public void RecordBookAcquisition(IBook book, string supplierId, string employeeId, DateTime timestamp)
+        {
+            BookAcquisition acquisition = new(102, supplierId, book.BookId, employeeId, timestamp);
+
+            _context.Books.Add((Book)book);
+            _context.Event_BookAcquisitions.Add(acquisition);
+            _context.SaveChanges();
+        }
+
+        public void RecordBookDeletion(string bookId, string employeeId, DateTime timestamp)
+        {
+            _context.Event_BookDeletions.Add(new BookDeletion(111, bookId, employeeId, timestamp));
+            _context.SaveChanges();
+        }
+
+        public void RecordBookCheckout(string bookId, string readerId, string employeeId, DateTime timestamp)
+        {
+            _context.Event_RentsReturns.Add(new Rent_Return(101, bookId, readerId, employeeId, "Rent", timestamp));
+            _context.SaveChanges();
+        }
+
+        public void RecordBookReturn(string bookId, string readerId, string employeeId, DateTime timestamp)
+        {
+            _context.Event_RentsReturns.Add(new Rent_Return(300, bookId, readerId, employeeId, "Return", timestamp));
+            _context.SaveChanges();
         }
 
     }

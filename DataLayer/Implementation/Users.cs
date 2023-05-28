@@ -1,33 +1,22 @@
 using DataLayer.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Linq.Mapping;
 
 namespace DataLayer.Implementation
 {
-    [Table(Name = "Employees")]
-    public class Person: IPerson
+
+    public class Employee: IEmployee
     {
-        [Column(Name = "Name")]
         public string Name { get; set; }
-        [Column(Name = "Surname")]
         public string Surname { get; set; }
-        [Column(Name = "Address")]
         public string Address { get; set; }
-        [Column(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
-        [Column(Name = "Email")]
         public string Email { get; set; }
-        [Column(Name = "EmployeeId")]
-        public string PersonId { get; set; }
+        public string EmployeeId { get; set; }
 
 
-        public Person(string personId, string name, string address, string phoneNumber, string email, string surname) 
+        public Employee(string employeeId, string name, string address, string phoneNumber, string email, string surname) 
         {
-            PersonId = personId;
+            EmployeeId = employeeId;
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
@@ -36,7 +25,28 @@ namespace DataLayer.Implementation
         }
     }
 
-    [Table(Name = "Employees")]
+    public class Reader : IReader
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string ReaderId { get; set; }
+
+
+        public Reader(string readerId, string name, string address, string phoneNumber, string email, string surname)
+        {
+            ReaderId = readerId;
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Surname = surname;
+        }
+    }
+
+    [Table(Name = "Suppliers")]
     public class Supplier: ISupplier
     {
         public Supplier(string supplierId, string name, string address, string phoneNumber, string email) 

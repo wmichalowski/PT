@@ -1,5 +1,6 @@
 ﻿using DataLayer.API;
 using DataLayer.Implementation;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogicLayer.Tests
 {
@@ -8,12 +9,19 @@ namespace LogicLayer.Tests
     {
         private IDataRepository _dataRepository;
         public ILibraryState _libraryState;
+        string connString;
+        DbContextOptions<DataContext> options;
+        DataContext _context;
 
         [TestInitialize]
         public void Initialize()
         {
             _libraryState = new LibraryState();
-            DataContext _context = new DataContext("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            options = new DbContextOptionsBuilder<DataContext>()
+            .UseSqlServer(connString)
+            .Options;
+            _context = new DataContext(options, connString);
             _dataRepository = new DataRepository(_context);
         }
 
@@ -32,7 +40,7 @@ namespace LogicLayer.Tests
             Assert.IsTrue(newBook.Available);
 
             // Act
-            BookRent bookRent = new BookRent(readerId, bookId, employeeId, timestamp);
+            Rent_Return bookRent = new(101, readerId, bookId, employeeId, "Rent" , timestamp);
 
             // Assert
             Assert.IsTrue(newBook.Available);
@@ -60,7 +68,7 @@ namespace LogicLayer.Tests
 
 
             // Act
-            BookReturn bookReturn = new BookReturn(readerId, bookId, employeeId, timestamp);
+            Rent_Return bookReturn = new(101, readerId, bookId, employeeId, "Return", timestamp);
 
             // Assert
             Assert.IsTrue(book.Available);
@@ -87,14 +95,13 @@ namespace LogicLayer.Tests
             DateTime timestamp = new DateTime(2023, 4, 15);
 
             // Act
-            BookAcquisition bookAcquisition = new BookAcquisition(supplierId, bookId, newBook, employeeId, timestamp);
+            BookAcquisition bookAcquisition = new BookAcquisition(102, supplierId, bookId, employeeId, timestamp);
 
             // Assert
             Assert.AreEqual("Supplier1", bookAcquisition.SupplierId);
             Assert.AreEqual("100", bookAcquisition.BookId);
             Assert.AreEqual("Employee1", bookAcquisition.EmployeeId);
             Assert.AreEqual(new DateTime(2023, 4, 15), bookAcquisition.Timestamp);
-            Assert.AreEqual("Dogs", bookAcquisition.Book.Title);
         }
     }
 }

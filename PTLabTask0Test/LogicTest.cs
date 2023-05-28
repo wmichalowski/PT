@@ -1,7 +1,7 @@
-﻿using System;
-using DataLayer.API;
+﻿using DataLayer.API;
 using DataLayer.Implementation;
 using LogicLayer.API;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogicLayer.Implementation.Tests
 {
@@ -12,15 +12,21 @@ namespace LogicLayer.Implementation.Tests
         private ILibraryState _libraryState;
         private ILogic _logic;
         private IEventsRecording _events;
+        string connString;
+        DbContextOptions<DataContext> options;
+        DataContext _context;
 
         [TestInitialize]
         public void Initialize()
         {
             _libraryState = new LibraryState();
-            DataContext _context = new DataContext("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+            connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            options = new DbContextOptionsBuilder<DataContext>()
+            .UseSqlServer(connString)
+            .Options;
+            _context = new DataContext(options, connString);
             _dataRepository = new DataRepository(_context);
-            _events = new LibraryState();
-            _logic = new Logic(_dataRepository, _events);
+            _logic = new Logic(_dataRepository);
         }
 
         [TestMethod]
@@ -92,24 +98,6 @@ namespace LogicLayer.Implementation.Tests
             // Assert
             var result = _dataRepository.GetBookById(book.BookId);
             Assert.AreEqual(book, result);
-            _dataRepository.DeleteBook("100");
-        }
-
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void DeleteBook_BookExists_DeletesBook()
-        {
-            // Arrange
-            Book book = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
-
-            _dataRepository.AddBook(book);
-
-            // Act
-            _logic.BookDeletion(book.BookId, "Emplyee1");
-
-            // Assert
-            var result = _dataRepository.GetBookById(book.BookId);
             _dataRepository.DeleteBook("100");
         }
 

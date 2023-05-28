@@ -11,8 +11,8 @@ namespace PTLabTask0Test
         {
             //generate users
 
-            dataRepository.AddEmployee(new Person("234", "John", "23 Street", "+48395139211", "john@mail.com", "Smith"));
-            dataRepository.AddReader(new Person("234", "Jan", "44 Street", "+42227742738", "jan@onet.pl", "Kowalski"));
+            dataRepository.AddEmployee(new Employee("234", "John", "23 Street", "+48395139211", "john@mail.com", "Smith"));
+            dataRepository.AddReader(new Reader("234", "Jan", "44 Street", "+42227742738", "jan@onet.pl", "Kowalski"));
             dataRepository.AddSupplier(new Supplier("2211", "Bechtle", "Bechtle Platz", "+4420343743", "bechtle@bechtle.de"));
 
             //generate books

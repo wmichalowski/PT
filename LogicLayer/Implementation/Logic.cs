@@ -1,6 +1,4 @@
-﻿using System.Net;
-using DataLayer.API;
-using DataLayer.Implementation;
+﻿using DataLayer.API;
 using LogicLayer.API;
 
 namespace LogicLayer.Implementation
@@ -8,20 +6,16 @@ namespace LogicLayer.Implementation
     public class Logic : ILogic
     {
         private readonly IDataRepository _dataRepository;
-        private readonly IEventsRecording _events;
-
-        public Logic(IDataRepository dataRepository, IEventsRecording events)
+        public Logic(IDataRepository dataRepository)
         {
             _dataRepository = dataRepository;
-            _events = events;
         }
 
-        public void BookAcquisition(Book book, string supplierId, string employeeId)
+        public void BookAcquisition(IBook book, string supplierId, string employeeId)
         {
             if (_dataRepository.GetBookById(book.BookId) == null)
             {
-                _dataRepository.AddBook(book);
-                _events.RecordBookAcquisition(book, supplierId, employeeId, DateTime.Now);
+                _dataRepository.RecordBookAcquisition(book, supplierId, employeeId, DateTime.Now);
             }
             else
             {
@@ -29,7 +23,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void UpdateBook(Book book)
+        public void UpdateBook(IBook book)
         {
             if (_dataRepository.GetBookById(book.BookId) != null)
             {
@@ -42,49 +36,49 @@ namespace LogicLayer.Implementation
             if (_dataRepository.GetBookById(bookId) != null)
             {
                 _dataRepository.DeleteBook(bookId);
-                _events.RecordBookDeletion(bookId, employeeId, DateTime.Now);
+                _dataRepository.RecordBookDeletion(bookId, employeeId, DateTime.Now);
             }
         }
 
         public void BookRent(string bookId, string readerId, string employeeId)
         {
-            Book bookToRent = _dataRepository.GetBookById(bookId);
+            IBook bookToRent = _dataRepository.GetBookById(bookId);
             if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == true)
             {
                 bookToRent.Available = false;
-                _events.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
+                _dataRepository.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
             }
         }
 
         public void BookReturn(string bookId, string readerId, string employeeId)
         {
-            Book bookToRent = _dataRepository.GetBookById(bookId);
+            IBook bookToRent = _dataRepository.GetBookById(bookId);
 
             if (_dataRepository.GetBookById(bookId) != null && bookToRent.Available == false)
             {
 
                 bookToRent.Available = true;
-                _events.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
+                _dataRepository.RecordBookCheckout(bookId, readerId, employeeId, DateTime.Now);
             }
         }
 
-        public Book? GetBookById(string bookId)
+        public IBook? GetBookById(string bookId)
         {
             var book = _dataRepository.GetBookById(bookId);
             return book ?? throw new ArgumentException("Book not found.");
         }
 
-        public void AddReader(Person person)
+        public void AddReader(IReader person)
         {
-            if (_dataRepository.GetReaderById(person.PersonId) == null)
+            if (_dataRepository.GetReaderById(person.ReaderId) == null)
             {
                 _dataRepository.AddReader(person);
             }
         }
 
-        public void UpdateReader(Person person)
+        public void UpdateReader(IReader person)
         {
-            if (_dataRepository.GetReaderById(person.PersonId) != null)
+            if (_dataRepository.GetReaderById(person.ReaderId) != null)
             {
                 _dataRepository.UpdateReader(person);
             }
@@ -98,23 +92,23 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public Person? GetReaderById(string personId)
+        public IReader? GetReaderById(string personId)
         {
             var person = _dataRepository.GetReaderById(personId);
             return person ?? throw new ArgumentException("Person not found");
         }
 
-        public void AddEmployee(Person person)
+        public void AddEmployee(IEmployee person)
         {
-            if (_dataRepository.GetReaderById(person.PersonId) == null)
+            if (_dataRepository.GetReaderById(person.EmployeeId) == null)
             {
                 _dataRepository.AddEmployee(person);
             }
         }
 
-        public void UpdateEmployee(Person person)
+        public void UpdateEmployee(IEmployee person)
         {
-            if (_dataRepository.GetReaderById(person.PersonId) != null)
+            if (_dataRepository.GetReaderById(person.EmployeeId) != null)
             {
                 _dataRepository.UpdateEmployee(person);
             }
@@ -128,13 +122,13 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public Person? GetEmployeeById(string personId)
+        public IEmployee? GetEmployeeById(string personId)
         {
             var employee = _dataRepository.GetEmployeeById(personId);
             return employee ?? throw new ArgumentException("no such employee");
         }
 
-        public void AddSupplier(Supplier supplier)
+        public void AddSupplier(ISupplier supplier)
         {
             if (_dataRepository.GetSupplierById(supplier.SupplierId) == null)
             {
@@ -142,7 +136,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public void UpdateSupplier(Supplier supplier)
+        public void UpdateSupplier(ISupplier supplier)
         {
             if (_dataRepository.GetSupplierById(supplier.SupplierId) != null)
             {
@@ -158,7 +152,7 @@ namespace LogicLayer.Implementation
             }
         }
 
-        public Supplier? GetSupplierById(string supplierId)
+        public ISupplier? GetSupplierById(string supplierId)
         {
             var supplier = _dataRepository.GetSupplierById(supplierId);
             return supplier ?? throw new ArgumentException("no such supplier");

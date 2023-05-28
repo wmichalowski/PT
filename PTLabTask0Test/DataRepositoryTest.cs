@@ -1,5 +1,7 @@
 using DataLayer.API;
 using DataLayer.Implementation;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Net;
 
 namespace DataLayer.Tests
@@ -9,15 +11,21 @@ public class DataRepositoryTests
 {
     private IDataRepository _dataRepository;
     public ILibraryState _libraryState;
-    DataContext _context = new DataContext("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+    string connString; 
+    DbContextOptions<DataContext> options;
+    DataContext _context;
 
         [TestInitialize]
     public void Initialize()
     {
         _libraryState = new LibraryState();
-       
-            _dataRepository = new DataRepository(_context);
-    }
+        connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DOCUMENTS\\UNIVERSITY\\PT\\PROJECTS\\GIT2\\PT\\PT\\DATALAYER\\DB\\LIBRARY.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+        options = new DbContextOptionsBuilder<DataContext>()
+        .UseSqlServer(connString)
+        .Options;
+        _context = new DataContext(options, connString);
+        _dataRepository = new DataRepository(_context);
+        }
 
      [TestCleanup()]
         public void Cleanup()
@@ -30,14 +38,16 @@ public class DataRepositoryTests
            
         }
 
-        [TestMethod]
+    [TestMethod]
     public void AddBook_ShouldAddBookToLibraryState()
     {
         // Arrange
-        Book newBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+        IBook newBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+        IBook newBook2 = new Book("Gods", "Alce Smeth", "101", "PoolCublisher", "Encyclopenia", true);
 
-        // Act
-        _dataRepository.AddBook(newBook);
+            // Act
+            _dataRepository.AddBook(newBook);
+            _dataRepository.AddBook(newBook2);
 
             // Assert
             Assert.IsNotNull(_dataRepository.GetBookById("100"));
@@ -49,21 +59,21 @@ public class DataRepositoryTests
     public void UpdateBook_ShouldUpdateExistingBook()
     {
         // Arrange
-        Book existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+        IBook existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
          _dataRepository.AddBook(existingBook);
 
-        Book updatedBook = new Book("Cats", "Alice", "100", "BigPublisher", "Encyclopedia", true);
+        IBook updatedBook = new Book("Cats", "Alice", "100", "BigPublisher", "Encyclopedia", true);
 
         // Act
         _dataRepository.UpdateBook(updatedBook);
 
-        existingBook = _dataRepository.GetBookById("100");
+        IBook bookFromDb = _dataRepository.GetBookById("100");
 
         // Assert
-        Assert.AreEqual(existingBook.Author, updatedBook.Author);
-        Assert.AreEqual(existingBook.Title, updatedBook.Title);
-        Assert.AreEqual(existingBook.Category, updatedBook.Category);
-        Assert.AreEqual(existingBook.Publisher, updatedBook.Publisher);
+        Assert.AreEqual(bookFromDb.Author, updatedBook.Author);
+        Assert.AreEqual(bookFromDb.Title, updatedBook.Title);
+        Assert.AreEqual(bookFromDb.Category, updatedBook.Category);
+        Assert.AreEqual(bookFromDb.Publisher, updatedBook.Publisher);
             _dataRepository.DeleteBook("100");
         }
 
@@ -72,7 +82,7 @@ public class DataRepositoryTests
     public void UpdateBook_ShouldThrowArgumentException_WhenBookNotFound()
     {
         // Arrange
-        Book notExistingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+        IBook notExistingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
 
         // Act
         _dataRepository.UpdateBook(notExistingBook);
@@ -82,7 +92,7 @@ public class DataRepositoryTests
     public void DeleteBook_ShouldRemoveBookFromLibraryState()
     {
         // Arrange
-        Book existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+        IBook existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
             _dataRepository.AddBook(existingBook);
 
         // Act
@@ -104,14 +114,23 @@ public class DataRepositoryTests
     public void GetBookById_ShouldReturnCorrectBook()
     {
         // Arrange
-        Book existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
+        IBook existingBook = new Book("Dogs", "Alice Smith", "100", "CoolPublisher", "Encyclopedia", true);
         _dataRepository.AddBook(existingBook);
 
             // Act
-            Book retrievedBook = _dataRepository.GetBookById("100");
+            IBook retrievedBook = _dataRepository.GetBookById("100");
 
-        // Assert
-        Assert.AreEqual(existingBook, retrievedBook);
+            Console.WriteLine(retrievedBook.BookId);
+            Console.WriteLine(retrievedBook.Category);
+            Console.WriteLine(retrievedBook.Author);
+
+            Console.WriteLine(existingBook.BookId);
+            Console.WriteLine(existingBook.Category);
+            Console.WriteLine(existingBook.Author);
+
+
+            // Assert
+            Assert.IsTrue(existingBook.Equals(retrievedBook));
 
             _dataRepository.DeleteBook("100");
         }

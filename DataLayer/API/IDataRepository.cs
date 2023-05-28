@@ -11,25 +11,30 @@ namespace DataLayer.API
     public interface IDataRepository
     {
 
-        void AddBook(Book book);
-        void UpdateBook(Book book);
+        void AddBook(IBook book);
+        void UpdateBook(IBook book);
         void DeleteBook(string bookId);
-        Book GetBookById(string bookId);
+        IBook GetBookById(string bookId);
 
-        void AddReader(Person person);
-        void UpdateReader(Person person);
+        void AddReader(IReader person);
+        void UpdateReader(IReader person);
         void DeleteReader(string personId);
-        Person GetReaderById(string personId);
+        IReader GetReaderById(string personId);
 
-        void AddEmployee(Person person);
-        void UpdateEmployee(Person person);
+        void AddEmployee(IEmployee person);
+        void UpdateEmployee(IEmployee person);
         void DeleteEmployee(string personId);
-        Person GetEmployeeById(string personId);
+        IEmployee GetEmployeeById(string personId);
 
-        void AddSupplier(Supplier supplier);
-        void UpdateSupplier(Supplier supplier);
+        void AddSupplier(ISupplier supplier);
+        void UpdateSupplier(ISupplier supplier);
         void DeleteSupplier(string supplierId);
-        Supplier GetSupplierById(string supplierId);
+        ISupplier GetSupplierById(string supplierId);
+
+        void RecordBookAcquisition(IBook book, string supplierId, string employeeId, DateTime timestamp);
+        void RecordBookDeletion(string bookId, string employeeId, DateTime timestamp);
+        void RecordBookCheckout(string bookId, string readerId, string employeeId, DateTime timestamp);
+        void RecordBookReturn(string bookId, string readerId, string employeeId, DateTime timestamp);
 
         public static IDataRepository CreateDataRepository(IDataGenerator? generator = default)
         {
