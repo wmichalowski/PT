@@ -4,6 +4,7 @@ namespace LogicLayer.API
 {
     public interface ILogic
     {
+
         void BookAcquisition(IBook book, string supplierId, string employeeId);
         void UpdateBook(IBook book);
         void BookDeletion(string bookId, string employeeId);

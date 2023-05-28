@@ -1,0 +1,123 @@
+﻿<Window x:Class="PresentationLayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Canvas>
+            <Menu Height="434" Width="800">
+                <TabControl/>
+            </Menu>
+        </Canvas>
+        <TabControl>
+            <TabItem Header="View">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="747*"/>
+                    </Grid.ColumnDefinitions>
+                    <TabControl Grid.ColumnSpan="3" Margin="0,0,47,0">
+                        <TabItem Header="Books">
+                            <Grid Background="#FFE5E5E5">
+                                <Label Content="princess&#xD;&#xA;" HorizontalAlignment="Left" Margin="254,104,0,0" VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Users">
+                            <Grid Background="#FFE5E5E5">
+                                <Label Content="wonder&#xD;&#xA;" HorizontalAlignment="Left" Margin="239,159,0,0" VerticalAlignment="Top"/>
+                                <TabControl>
+                                    <TabItem Header="Readers">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Employees">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Suppliers">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                </TabControl>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Events">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="59*"/>
+                                    <ColumnDefinition Width="682*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="wonder&#xD;&#xA;" HorizontalAlignment="Left" Margin="180,159,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                                <TabControl Grid.ColumnSpan="2">
+                                    <TabItem Header="Book Rent/Return">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Book Acquisition">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Book Deletion">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                </TabControl>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Edit">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="747*"/>
+                    </Grid.ColumnDefinitions>
+                    <TabControl Grid.ColumnSpan="3" Margin="0,0,47,0">
+                        <TabItem Header="Books">
+                            <Grid Background="#FFE5E5E5">
+                                <Label Content="princess&#xD;&#xA;" HorizontalAlignment="Left" Margin="254,104,0,0" VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Users">
+                            <Grid Background="#FFE5E5E5">
+                                <Label Content="wonder&#xD;&#xA;" HorizontalAlignment="Left" Margin="239,159,0,0" VerticalAlignment="Top"/>
+                                <TabControl>
+                                    <TabItem Header="Readers">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Employees">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Suppliers">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                </TabControl>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Events">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="59*"/>
+                                    <ColumnDefinition Width="682*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="wonder&#xD;&#xA;" HorizontalAlignment="Left" Margin="180,159,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                                <TabControl Grid.ColumnSpan="2">
+                                    <TabItem Header="Book Rent/Return">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Book Acquisition">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                    <TabItem Header="Book Deletion">
+                                        <Grid Background="#FFE5E5E5"/>
+                                    </TabItem>
+                                </TabControl>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+</Window>
