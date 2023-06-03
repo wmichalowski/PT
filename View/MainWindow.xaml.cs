@@ -25,12 +25,37 @@ namespace View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        // first column 
+
+        private void Button_Click_Books_View(object sender, RoutedEventArgs e)
         {
             BookDetails bookDetailsWindow = new BookDetails();
             Window mainWindow = Window.GetWindow(this);
             mainWindow.Content = bookDetailsWindow;
         }
+
+        private void Button_Click_Readers_View(object sender, RoutedEventArgs e)
+        {
+            ReadersDetails readersDetailsWindow = new ReadersDetails();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = readersDetailsWindow;
+        }
+
+        private void Button_Click_Employees_View(object sender, RoutedEventArgs e)
+        {
+            EmployeesDetails employeesDetailsWindow = new EmployeesDetails();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = employeesDetailsWindow;
+        }
+
+        private void Button_Click_Suppliers_View(object sender, RoutedEventArgs e)
+        {
+            SuppliersDetails suppliersDetailsWindow = new SuppliersDetails();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = suppliersDetailsWindow;
+        }
+
+        // second column - add / delete UserControls
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -73,5 +98,10 @@ namespace View
             Window mainWindow = Window.GetWindow(this);
             mainWindow.Content = returnWindow;
         }
+
+        
+
+
+
     }
 }

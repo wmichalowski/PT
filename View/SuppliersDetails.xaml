@@ -1,23 +1,23 @@
-<UserControl x:Class="View.BookDetails"
+<UserControl x:Class="View.SuppliersDetails"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View"
-             mc:Ignorable="d"
+             mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-   <Grid Background="#FFE5E5E5">
+    <Grid Background="#FFE5E5E5">
         <Rectangle HorizontalAlignment="Center" Height="38" Margin="0,29,0,0" Stroke="Black" VerticalAlignment="Top" Width="428"/>
-        <TextBlock HorizontalAlignment="Center" Height="16" Margin="0,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"><Run Language="pl-pl" Text="BOOK INFO"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Height="16" Margin="0,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"><Run Language="pl-pl" Text="SUPPLIERS INFO"/></TextBlock>
         <ListView SelectedIndex="{Binding SelectedBook}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="86,105,86,105">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding BookId}"/>
-                    <GridViewColumn Header="Title" Width="120" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Reader ID" Width="50" DisplayMemberBinding="{Binding SuppliersId}"/>
+                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}"/>   
                     <GridViewColumn Header="More Info" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Width="70" Click="Button_Click_Books_View"/>
+                                <Button Content="Details" Width="70" Click="Button_Click_Suppliers_View"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

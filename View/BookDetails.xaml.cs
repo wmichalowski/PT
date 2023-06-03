@@ -36,5 +36,9 @@ namespace View
             Window currentWindow = Window.GetWindow(this);
             currentWindow.Content = mainWindow;
         }
+        private void Button_Click_Books_View(object sender, RoutedEventArgs e)
+        {
+            // Handle button click event
+
+        }
     }
-}
