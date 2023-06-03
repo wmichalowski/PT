@@ -25,24 +25,53 @@ namespace View
             InitializeComponent();
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            BookDetails bookDetailsWindow = new BookDetails();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = bookDetailsWindow;
         }
 
-        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            Book bookWindow = new Book();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = bookWindow;
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
+            Employees employeesWindow = new Employees();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = employeesWindow;
         }
 
-        private void DataGrid_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
+        private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            Readers readersWindow = new Readers();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = readersWindow;
+        }
 
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Suppliers suppliersWindow = new Suppliers();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = suppliersWindow;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Rent rentWindow = new Rent();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = rentWindow;
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            Return returnWindow = new Return();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = returnWindow;
         }
     }
 }

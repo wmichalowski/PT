@@ -1,0 +1,24 @@
+<UserControl x:Class="View.Rent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="0,0,0,10" Background="#FFE5E5E5">
+        <Rectangle HorizontalAlignment="Left" Height="33" Margin="141,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="535"/>
+        <TextBlock HorizontalAlignment="Left" Height="17" Margin="400,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="-1.005,0.508"><Run Language="pl-pl" Text="RENT"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Text="{Binding StateId}" Height="20" Margin="324,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258" />
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="271,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"><Run Language="pl-pl" Text="Book "/><Run Text="ID"/><Run Text=":"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="259,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" RenderTransformOrigin="0.585,0.59"><Run Language="pl-pl" Text="Reader ID"/><Run Text=":"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Text="{Binding UserId}" Height="20" Margin="324,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258" />
+        <Button Content="Add"  Background="LawnGreen" HorizontalAlignment="Left" Command="{Binding AddRentCommand}" Height="42" Margin="257,237,0,0" VerticalAlignment="Top" Width="338" />
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="247,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97"><Run Language="pl-pl" Text="Employee ID"/><Run Text=":"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Text="{Binding UserId}" Height="20" Margin="324,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258" />
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="271,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97"><Run Language="pl-pl" Text="Rent ID"/><Run Text=":"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Text="{Binding UserId}" Height="20" Margin="324,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258" />
+        <Button Content="Return to menu" Background="Bisque" HorizontalAlignment="Left" Margin="642,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.995,19.847" Width="120" Height="33" Click="Button_Click"/>
+
+    </Grid>
+</UserControl>
