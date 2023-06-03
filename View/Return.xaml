@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="0,0,10,10"  Background="#FFE5E5E5">
-        <Button Content="Add" HorizontalAlignment="Center" Command="{Binding AddRentCommand}" Height="41" Margin="0,317,0,0" VerticalAlignment="Top" Width="294" Background="LawnGreen" />
+    <Grid Background="#FFE5E5E5">
+        <Button Content="Add" HorizontalAlignment="Center" Command="{Binding AddCommand}" Height="41" Margin="0,317,0,0" VerticalAlignment="Top" Width="294" Background="LawnGreen" />
         <TextBox HorizontalAlignment="Left"  Text="{Binding StateId}" Height="20" Margin="297,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" />
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="227,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"><Run Language="pl-pl" Text="Book"/><Run Text=" ID"/><Run Text=":"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="215,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72"><Run Language="pl-pl" Text="Reader ID"/><Run Text=":"/></TextBlock>

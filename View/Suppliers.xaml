@@ -17,8 +17,8 @@
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="289,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"><Run Language="pl-pl" Text="Supplier"/><Run Text=" ID"/><Run Text=":"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="309,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"><Run Language="pl-pl" Text="Name"/><Run Text=":"/></TextBlock>
         <TextBox HorizontalAlignment="Left" Text="{Binding Name}" Height="20" Margin="357,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" />
-        <Button Content="Add" Background="LawnGreen" Command="{Binding AddUserCommand}" HorizontalAlignment="Left" Height="51" Margin="86,336,0,0" VerticalAlignment="Top" Width="265"/>
-        <Button Content="Delete" Background="Red" Command="{Binding DeleteUserCommand}" HorizontalAlignment="Left" Height="51" Margin="458,336,0,0" VerticalAlignment="Top" Width="264" RenderTransformOrigin="0.5,0.5"></Button>
+        <Button Content="Add" Background="LawnGreen" Command="{Binding AddCommand}" HorizontalAlignment="Left" Height="51" Margin="86,336,0,0" VerticalAlignment="Top" Width="265"/>
+        <Button Content="Delete" Background="Red" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Height="51" Margin="458,336,0,0" VerticalAlignment="Top" Width="264" RenderTransformOrigin="0.5,0.5"></Button>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="257,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"><Run Language="pl-pl" Text="Phone Number"/><Run Text=":"/></TextBlock>
         <TextBox HorizontalAlignment="Left" Text="{Binding Surname}" Height="20" Margin="357,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166"  />
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="289,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"><Run Language="pl-pl" Text="Address"/><Run Text=":"/></TextBlock>

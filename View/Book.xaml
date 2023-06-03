@@ -12,8 +12,8 @@
             </Rectangle.Fill>
         </Rectangle>
         <TextBlock HorizontalAlignment="Left" Height="17" Margin="398,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" RenderTransformOrigin="0.447,1.2"><Run Language="pl-pl" Text="BOOK" /></TextBlock>
-        <Button Content="Add" Command="{Binding AddStateCommand}" HorizontalAlignment="Left" Height="43" Margin="68,293,0,0" VerticalAlignment="Top" Width="268" Background="LawnGreen" />
-        <Button Content="Delete" Command="{Binding DeleteStateCommand}" HorizontalAlignment="Left" Height="43" Margin="417,293,0,0" VerticalAlignment="Top" Width="265"  RenderTransformOrigin="0.5,0.5" Background="Red" />
+        <Button Content="Add" Command="{Binding AddCommand}" HorizontalAlignment="Left" Height="43" Margin="68,293,0,0" VerticalAlignment="Top" Width="268" Background="LawnGreen" />
+        <Button Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Height="43" Margin="417,293,0,0" VerticalAlignment="Top" Width="265"  RenderTransformOrigin="0.5,0.5" Background="Red" />
         <TextBox HorizontalAlignment="Left" Height="20" Margin="367,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding InfoId}" />
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="307,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"><Run Language="pl-pl" Text="Book "/><Run Text="ID"/><Run Text=":"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="307,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"><Run Language="pl-pl" Text="Title:"/></TextBlock>

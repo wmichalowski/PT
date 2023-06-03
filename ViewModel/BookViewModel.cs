@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Model.API;
+using System.Windows.Input;
+
 
 namespace ViewModel
 {
@@ -40,5 +42,9 @@ namespace ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public ICommand AddCommand { get;
+        public ICommand DeleteCommand { get; }
+
     }
 }
