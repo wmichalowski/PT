@@ -25,7 +25,7 @@ namespace View
             InitializeComponent();
         }
 
-        // first column 
+        // first column - view
 
         private void Button_Click_Books_View(object sender, RoutedEventArgs e)
         {
@@ -53,6 +53,20 @@ namespace View
             SuppliersDetails suppliersDetailsWindow = new SuppliersDetails();
             Window mainWindow = Window.GetWindow(this);
             mainWindow.Content = suppliersDetailsWindow;
+        }
+
+        private void Button_Click_RentBooks_View(object sender, RoutedEventArgs e)
+        {
+            RentDetails rentDetailsWindow = new RentDetails();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = rentDetailsWindow;
+        }
+
+        private void Button_Click_ReturnedBooks_View(object sender, RoutedEventArgs e)
+        {
+            ReturnDetails returnDetailsWindow = new ReturnDetails();
+            Window mainWindow = Window.GetWindow(this);
+            mainWindow.Content = returnDetailsWindow;
         }
 
         // second column - add / delete UserControls
@@ -98,10 +112,6 @@ namespace View
             Window mainWindow = Window.GetWindow(this);
             mainWindow.Content = returnWindow;
         }
-
-        
-
-
 
     }
 }

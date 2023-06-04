@@ -9,16 +9,16 @@
     <Grid Background="#FFE5E5E5">
         <Rectangle HorizontalAlignment="Center" Height="38" Margin="0,29,0,0" Stroke="Black" VerticalAlignment="Top" Width="428"/>
         <TextBlock HorizontalAlignment="Center" Height="16" Margin="0,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"><Run Language="pl-pl" Text="READERS INFO"/></TextBlock>
-        <ListView SelectedIndex="{Binding SelectedBook}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="86,105,86,105">
+        <ListView SelectedIndex="{Binding SelectedBook}"  d:ItemsSource="{d:SampleData ItemCount=5}" Margin="86,105,86,105">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Reader ID" Width="50" DisplayMemberBinding="{Binding ReadersId}"/>
+                <GridView >
+                    <GridViewColumn Header="Reader ID" Width="100" DisplayMemberBinding="{Binding ReadersId}"/>
                     <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Surname" Width="120" DisplayMemberBinding="{Binding Surname}"/>
-                    <GridViewColumn Header="More Info" Width="100">
+                    <GridViewColumn Header="More Info" Width="110">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Width="70" Click="Button_Click_Readers_View"/>
+                                <Button Content="Details" Width="70" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
