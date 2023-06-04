@@ -43,7 +43,7 @@ namespace ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ICommand AddCommand { get;
+        public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
 
     }
