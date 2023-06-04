@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Model.API
 {
-    public interface IBookModel
+    public interface IAddBookModel
     {
-        int BookId { get; set; }
+        string BookId { get; set; }
         string Title { get; set; }
         string Author { get; set; }
         string Category { get; set; }
         string Publisher { get; set; }
 
-        void AddBook(int bookId, string title, string author, string category, string publisher);
-        void RemoveBook(int bookId);
-        IEnumerable<IBookModel> GetAllBooks();
+        Task AddBookAsync();
     }
 }

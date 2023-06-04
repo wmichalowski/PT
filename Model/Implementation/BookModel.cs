@@ -10,27 +10,41 @@ namespace Model.Implementation
 {
     public class BookModel : IBookModel
     {
-        public BookModel(string id, string title)
-        {
-            Id = id;
-            Title = title;
-
-            _service = IBusinessLogic.BusinessLogicFactory();
-        }
-
-        public string Id { get; set; }
+        public int BookId { get; set; }
         public string Title { get; set; }
-        IBusinessLogic _service { get; }
+        public string Author { get; set; }
+        public string Category { get; set; }
+        public string Publisher { get; set; }
 
-        public void AddBook(int id, string name)
+        private List<BookModel> bookList;
+
+        public BookModel()
         {
-          _service.AddBook(id, name);
+            bookList = new List<BookModel>();
         }
 
-        public void RemoveBook(int id)
+        public void AddBook(int bookId, string title, string author, string category, string publisher)
         {
-            _service.RemoveBook(id);
+            bookList.Add(new BookModel
+            {
+                BookId = bookId,
+                Title = title,
+                Author = author,
+                Category = category,
+                Publisher = publisher
+            });
         }
 
+        public void RemoveBook(int bookId)
+        {
+            var bookToRemove = bookList.Find(book => book.BookId == bookId);
+            if (bookToRemove != null)
+                bookList.Remove(bookToRemove);
+        }
+
+        public IEnumerable<IBookModel> GetAllBooks()
+        {
+            return bookList;
+        }
     }
 }
