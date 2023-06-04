@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 
 namespace Model.Implementation
 {
@@ -17,11 +17,11 @@ namespace Model.Implementation
         public string Address { get; set; }
         public string Email { get; set; }
 
-        private List<EmployeeModel> employeeList;
+        private List<IEmployeeModel> employeeList;
 
         public EmployeeModel()
         {
-            employeeList = new List<EmployeeModel>();
+            employeeList = new List<IEmployeeModel>();
         }
 
         public void AddEmployee(string name, string surname, string employeeId, string phoneNumber, string address, string email)
@@ -49,5 +49,4 @@ namespace Model.Implementation
             return employeeList;
         }
     }
-}
 }

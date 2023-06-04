@@ -2,20 +2,21 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
+using Model.API;
 
 namespace ViewModel
 {
     public partial class RetrunViewModel : ObservableObject
     {
-        private IRetrunModel _return;
+        private IReturnModel _return;
 
         public RetrunViewModel()
         {
         }
 
-        public RetrunViewModel(IReturnModel return)
+        public RetrunViewModel(IReturnModel returned)
         {
-            _return = retrun;
+            _return = returned;
         }
 
         public string BookId

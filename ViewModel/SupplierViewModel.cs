@@ -2,16 +2,17 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
+using Model.API;
 
 namespace ViewModel
 {
-    public partial class AddSupplierViewModel : ObservableObject
+    public partial class SupplierViewModel : ObservableObject
     {
-        private IAddSupplierModel _addedSupplier;
-        public AddSupplierViewModel()
+        private ISupplierModel _addedSupplier;
+        public SupplierViewModel()
         {
         }
-        public AddSupplierViewModel(IAddSupplierModel addedSupplier)
+        public SupplierViewModel(ISupplierModel addedSupplier)
         {
             _addedSupplier = addedSupplier;
         }
@@ -69,3 +70,4 @@ namespace ViewModel
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
     }
+}

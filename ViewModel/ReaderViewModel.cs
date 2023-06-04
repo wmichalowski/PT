@@ -2,79 +2,81 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
+using Model.API;
 
 namespace ViewModel
 {
-    public partial class AddEmployeeViewModel : ObservableObject
+    public partial class ReaderViewModel : ObservableObject
     {
-        private IAddEmployeeModel _addedEmployee;
-        public AddEmployeeViewModel()
+        private IReaderModel _addedReader;
+        public ReaderViewModel()
         {
         }
-        public AddEmployeeViewModel(IAddEmployeeModel addedEmployee)
+        public ReaderViewModel(IReaderModel addedReader)
         {
-            _addedEmployee = addedEmployee;
+            _addedReader = addedReader;
         }
 
         public string Name
         {
-            get { return _addedEmployee.Name; }
+            get { return _addedReader.Name; }
             set
             {
-                _addedEmployee.Name = value;
+                _addedReader.Name = value;
                 OnPropertyChanged();
             }
         }
 
         public string Surname
         {
-            get { return _addedEmployee.Surname; }
+            get { return _addedReader.Surname; }
             set
             {
-                _addedEmployee.Surname = value;
+                _addedReader.Surname = value;
                 OnPropertyChanged();
             }
         }
-        public string EmployeeId
+        public string ReaderId
         {
-            get { return _addedEmployee.EmployeeId; }
+            get { return _addedReader.ReaderId; }
             set
             {
-                _addedEmployee.EmployeeId = value;
+                _addedReader.ReaderId = value;
                 OnPropertyChanged();
             }
         }
 
         public string PhoneNumber
         {
-            get { return _addedEmployee.PhoneNumber; }
+            get { return _addedReader.PhoneNumber; }
             set
             {
-                _addedEmployee.PhoneNumber = value;
+                _addedReader.PhoneNumber = value;
                 OnPropertyChanged();
             }
         }
 
         public string Address
         {
-            get { return _addedEmployee.Address; }
+            get { return _addedReader.Address; }
             set
             {
-                _addedEmployee.Address = value;
+                _addedReader.Address = value;
                 OnPropertyChanged();
             }
         }
 
         public string Email
         {
-            get { return _addedEmployee.Email; }
+            get { return _addedReader.Email; }
             set
             {
-                _addedEmployee.Email = value;
+                _addedReader.Email = value;
                 OnPropertyChanged();
             }
         }
 
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
+    }
 }

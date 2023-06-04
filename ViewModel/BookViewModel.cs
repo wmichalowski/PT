@@ -1,50 +1,73 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Model.API;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-
+using Model.API;
 
 namespace ViewModel
 {
-    public class BookViewModel : INotifyPropertyChanged
+    public partial class BookViewModel : ObservableObject
     {
-        private readonly IBookModel bookModel;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public BookViewModel(IBookModel bookModel)
+        private IBookModel _addedBook;
+        public BookViewModel()
         {
-            this.bookModel = bookModel;
-            LoadBooks();
+        }
+        public BookViewModel(IBookModel addedBook)
+        {
+            _addedBook = addedBook;
         }
 
-        private ObservableCollection<IBookModel> books;
-        public ObservableCollection<IBookModel> Books
+        public int BookId
         {
-            get { return books; }
+            get { return _addedBook.BookId; }
             set
             {
-                books = value;
-                OnPropertyChanged(nameof(Books));
+                _addedBook.BookId = value;
+                OnPropertyChanged();
             }
         }
 
-        private void LoadBooks()
+        public string Title
         {
-            // Retrieve the list of books from the model
-            var bookList = bookModel.GetAllBooks();
-
-            // Create an observable collection from the book list
-            Books = new ObservableCollection<BookModel>(bookList);
+            get { return _addedBook.Title; }
+            set
+            {
+                _addedBook.Title = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Author
+        {
+            get { return _addedBook.Author; }
+            set
+            {
+                _addedBook.Author = value;
+                OnPropertyChanged();
+            }
         }
 
-        // Implement INotifyPropertyChanged interface
-        protected void OnPropertyChanged(string propertyName)
+        public string Publisher
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get { return _addedBook.Publisher; }
+            set
+            {
+                _addedBook.Publisher = value;
+                OnPropertyChanged();
+            }
         }
+
+        public string Category
+        {
+            get { return _addedBook.Category; }
+            set
+            {
+                _addedBook.Category = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
-
     }
 }

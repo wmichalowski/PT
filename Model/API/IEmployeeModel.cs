@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model.API
 {
-    public interface IAddEmployeeModel
+    public interface IEmployeeModel
     {
         string Name { get; set; }
         string Surname { get; set; }
