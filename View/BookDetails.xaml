@@ -12,7 +12,7 @@
         <ListView SelectedIndex="{Binding SelectedBook}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="86,105,86,105">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding BookId}"/>
+                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding BookId}"/>
                     <GridViewColumn Header="Title" Width="120" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="More Info" Width="100">
                         <GridViewColumn.CellTemplate>

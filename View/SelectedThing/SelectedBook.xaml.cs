@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace View
+namespace View.SelectedThing
 {
     /// <summary>
-    /// Interaction logic for SelectedEmployee.xaml
+    /// Interaction logic for SelectedBook.xaml
     /// </summary>
-    public partial class SelectedEmployee : UserControl
+    public partial class SelectedBook : UserControl
     {
-        public SelectedEmployee()
+        public SelectedBook()
         {
             InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }
