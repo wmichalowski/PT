@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LogicLayer.API;
+using Model.Implementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +19,11 @@ namespace Model.API
         void AddBook(int bookId, string title, string author, string category, string publisher);
         void RemoveBook(int bookId);
         IEnumerable<IBookModel> GetAllBooks();
+
+        public static IBookModel BookModelFactory()
+        {
+            return new BookModel();
+        }
+
     }
 }
