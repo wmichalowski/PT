@@ -21,6 +21,7 @@ namespace ViewModel
             LoadBooks();
             ShowMoreCommand = new RelayCommand<object>(ExecuteShowMoreCommand);
             GoBackCommand = new RelayCommand(ExecuteGoBackCommand);
+            AddCommand = new RelayCommand(ExecuteAddCommand);
         }
 
 
@@ -148,5 +149,27 @@ namespace ViewModel
             SelectedBook = null;
         }
 
+        private void ExecuteAddCommand()
+        {
+            // Create a new book based on the current property values
+            IBookModel newBook = new BookModel
+            {
+                BookId = BookId,
+                Title = Title,
+                Author = Author,
+                Publisher = Publisher,
+                Category = Category
+            };
+
+            // Add the new book to the list of books
+            Books.Add(newBook);
+
+            // Reset the property values
+            BookId = 0;
+            Title = "DefaultTitle";
+            Author = "DefaultAuthor";
+            Publisher = "DefaultPublisher";
+            Category = "DefaultCategory";
+        }
     }
 }
