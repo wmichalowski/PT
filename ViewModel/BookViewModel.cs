@@ -23,6 +23,7 @@ namespace ViewModel
             GoBackCommand = new RelayCommand(ExecuteGoBackCommand);
         }
 
+
         public ObservableCollection<IBookModel> Books
         {
             get { return _books; }

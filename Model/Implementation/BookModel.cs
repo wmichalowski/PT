@@ -1,5 +1,6 @@
 ﻿using LogicLayer.API;
 using Model.API;
+using System.Collections.ObjectModel;
 
 namespace Model.Implementation
 {
@@ -41,18 +42,38 @@ namespace Model.Implementation
 
         public IEnumerable<IBookModel> GetAllBooks()
         {
-            var books = _businessLogic.GetAllBooks();
-
-            var bookModels = books.Select(book => new BookModel()
+            try
             {
-                BookId = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                Category = book.Category,
-                Publisher = book.Publisher
-            }) ;
+                var books = _businessLogic.GetAllBooks();
 
-            return bookModels;
+                var bookModels = books.Select(book => new BookModel()
+                {
+                    BookId = book.Id,
+                    Title = book.Title,
+                    Author = book.Author,
+                    Category = book.Category,
+                    Publisher = book.Publisher
+                });
+                return bookModels;
+            }
+            catch (Exception) { 
+                return GetExampleBooks();
+                
+            }
+            
+        }
+
+        private IEnumerable<IBookModel> GetExampleBooks()
+        {
+            // Create example book data
+            var exampleBooks = new ObservableCollection<IBookModel>
+        {
+            new BookModel { Title = "Example Book 1", Author = "John Doe", Category = "Fiction", Publisher = "Example Publisher 1" },
+            new BookModel { Title = "Example Book 2", Author = "Jane Smith", Category = "Non-fiction", Publisher = "Example Publisher 2" },
+
+        };
+
+            return exampleBooks;
         }
     }
 }
