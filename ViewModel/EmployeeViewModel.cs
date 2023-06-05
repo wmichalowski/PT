@@ -84,9 +84,9 @@ namespace ViewModel
             }
         }
 
-        public string EmployeeId
+        public int EmployeeId
         {
-            get { return _employeeModel?.EmployeeId ?? "DefaultEmployeeId"; }
+            get { return _employeeModel?.EmployeeId ?? 0; }
             set
             {
                 if (_employeeModel != null)

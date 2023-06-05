@@ -1,5 +1,7 @@
+using DataLayer.API;
 using LogicLayer.API;
 using Model.API;
+using System.Collections.ObjectModel;
 
 namespace Model.Implementation
 {
@@ -33,7 +35,7 @@ namespace Model.Implementation
             Address = address;
             Email = email;
 
-                _businessLogic.AddEmployee(name, surname, employeeId, phoneNumber, address, email);
+            _businessLogic.AddEmployee(employeeId, name, surname, phoneNumber, address, email);
 
         }
 
@@ -44,19 +46,54 @@ namespace Model.Implementation
 
         public IEnumerable<IEmployeeModel> GetAllEmployees()
         {
-            var employees = _businessLogic.GetAllBooks();
 
-            var employeeModels = employees.Select(employee => new EmployeeModel()
+            try
             {
-                Name = employee.name,
-                Surname = employee.surname,
-                EmployeeId = employee.employeeId,
-                PhoneNumber = employee.phoneNumber,
-                Address = employee.address,
-                Email = employee.email
-            });
+                var employees = _businessLogic.GetAllEmployees();
 
-            return employeeModels;
+                var employeeModels = employees.Select(employee => new EmployeeModel()
+                {
+                    Name = employee.Name,
+                    Surname = employee.Surname,
+                    EmployeeId = employee.EmployeeId,
+                    PhoneNumber = employee.PhoneNumber,
+                    Address = employee.Address,
+                    Email = employee.Email
+                });
+
+                return employeeModels;
+            } catch (Exception)
+            {
+                return GetExampleEmployees();
+            }
+        }
+
+        private IEnumerable<IEmployeeModel> GetExampleEmployees()
+        {
+            // Create example book data
+            var exampleEmployees = new ObservableCollection<IEmployeeModel>
+            {
+             new EmployeeModel
+    {
+        Name = "John",
+        Surname = "Doe",
+        EmployeeId = 1,
+        PhoneNumber = "555-1234",
+        Address = "123 Main St",
+        Email = "john.doe@example.com"
+    },
+    new EmployeeModel
+    {
+        Name = "Jane",
+        Surname = "Smith",
+        EmployeeId = 2,
+        PhoneNumber = "555-5678",
+        Address = "456 Elm St",
+        Email = "jane.smith@example.com"
+    }
+        };
+
+            return exampleEmployees;
         }
     }
 }

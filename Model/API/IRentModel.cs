@@ -12,8 +12,10 @@ namespace Model.API
         int ReaderId { get; set; }
         int EmployeeId { get; set; }
         int RentId { get; set; }
+        public string Intent { get; set; }
+        public DateTime Date { get; set; }
 
-        void AddRent(int bookId, int readerId, int employeeId, int rentId);
+        void AddRent(int bookId, int readerId, int employeeId, int rentId, string intent, DateTime date);
         void RemoveRent(int rentId);
         IEnumerable<IRentModel> GetAllRents();
     }

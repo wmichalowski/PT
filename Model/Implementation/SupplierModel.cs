@@ -45,7 +45,7 @@ namespace Model.Implementation
 
             var supplierModels = suppliers.Select(supplier => new SupplierModel()
             {
-                SupplierId = supplier.Id,
+                SupplierId = supplier.SupplierId,
                 Name = supplier.Name,
                 PhoneNumber = supplier.PhoneNumber,
                 Address = supplier.Address,

@@ -16,7 +16,7 @@ namespace Model.API
         string Address { get; set; }
         string Email { get; set; }
 
-        void AddReader(string name, string surname, int readerId, string phoneNumber, string address, string email);
+        void AddReader(int readerId, string name, string surname, string phoneNumber, string address, string email);
         void RemoveReader(int readerId);
         IEnumerable<IReaderModel> GetAllReaders();
     }

@@ -14,6 +14,7 @@ namespace DataLayer.API
         IQueryable<IReader> Readers { get; }
         IQueryable<IRent> Rents { get; }
         IQueryable<IReturn> Returns { get;  }
+        IQueryable<ISupplier> Suppliers { get; }
 
         public static IDataContext DataContextFactory(string? connectionString = null) => new DataContext(connectionString);
 
@@ -31,6 +32,11 @@ namespace DataLayer.API
         public abstract void RemoveReader(int readerId);
         public abstract IReader GetReaderById(int readerId);
         public abstract IEnumerable<IReader> GetAllReaders();
+
+        public abstract void AddSupplier(int supplierId, string name, string address, string phoneNumber, string email);
+        public abstract void RemoveSupplier(int supplierId);
+        public abstract ISupplier GetSupplierById(int supplierId);
+        public abstract IEnumerable<ISupplier> GetAllSuppliers();
 
         public abstract void AddRent(int rentId, int readerId, int bookId, int employeeId, string intent, DateTime timestamp);
         public abstract IRent GetRentById(int rentId);

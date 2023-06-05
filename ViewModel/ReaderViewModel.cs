@@ -53,9 +53,9 @@ namespace ViewModel
             }
         }
 
-        private async Task LoadReaders()
+        private void LoadReaders()
         {
-            Readers = new ObservableCollection<IReaderModel>(await _readerModel.GetAllReaders());
+            Readers = new ObservableCollection<IReaderModel>(_readerModel.GetAllReaders());
         }
 
         public string Name
@@ -84,7 +84,7 @@ namespace ViewModel
             }
         }
 
-        public string ReaderId
+        public int ReaderId
         {
             get { return _readerModel?.ReaderId ?? 0; }
             set

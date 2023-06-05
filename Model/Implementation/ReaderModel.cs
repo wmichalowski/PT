@@ -33,7 +33,7 @@ namespace Model.Implementation
             Address = address;
             Email = email;
 
-            _businessLogic.AddReader(readerId, name, surname, phoneNumber, address, email);
+            _businessLogic.AddReader(readerId, name, surname,  phoneNumber, address, email);
         }
 
         public void RemoveReader(int readerId)
@@ -47,7 +47,7 @@ namespace Model.Implementation
 
             var readerModels = readers.Select(reader => new ReaderModel()
             {
-                ReaderId = reader.Id,
+                ReaderId = reader.ReaderId,
                 Name = reader.Name,
                 Surname = reader.Surname,
                 PhoneNumber = reader.PhoneNumber,

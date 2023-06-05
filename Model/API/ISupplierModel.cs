@@ -8,13 +8,13 @@ namespace Model.API
 {
     public interface ISupplierModel
     {
-        string Name { get; set; }
         int SupplierId { get; set; }
+        string Name { get; set; }
         string PhoneNumber { get; set; }
         string Address { get; set; }
         string Email { get; set; }
 
-        void AddSupplier(string name, int supplierId, string phoneNumber, string address, string email);
+        void AddSupplier(int supplierId, string name, string phoneNumber, string address, string email);
         void RemoveSupplier(int supplierId);
         IEnumerable<ISupplierModel> GetAllSuppliers();
     }

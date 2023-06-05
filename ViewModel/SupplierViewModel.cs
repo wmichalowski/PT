@@ -53,9 +53,9 @@ namespace ViewModel
             }
         }
 
-        private async Task LoadSuppliers()
+        private void LoadSuppliers()
         {
-            Suppliers = new ObservableCollection<ISupplierModel>(await _supplierModel.GetAllSuppliers());
+            Suppliers = new ObservableCollection<ISupplierModel>(_supplierModel.GetAllSuppliers());
         }
 
         public string Name
@@ -71,9 +71,9 @@ namespace ViewModel
             }
         }
 
-        public string SupplierId
+        public int SupplierId
         {
-            get { return _supplierModel?.SupplierId ?? "DefaultSupplierId"; }
+            get { return _supplierModel?.SupplierId ?? 0; }
             set
             {
                 if (_supplierModel != null)

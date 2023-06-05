@@ -21,20 +21,24 @@ namespace Model.Implementation
         public int BookId { get; set; }
         public int EmployeeId { get; set; }
         public int ReaderId { get; set; }
+        public string Intent { get; set; }
+        public DateTime Date { get; set; }
 
-        public void AddReturn(int returnId, int bookId, int employeeId, int readerId)
+        public void AddReturn(int returnId, int bookId, int employeeId, int readerId, string intent, DateTime date)
         {
             ReturnId = returnId;
             BookId = bookId;
             EmployeeId = employeeId;
             ReaderId = readerId;
+            Intent = intent;
+            Date= date;
 
-            _businessLogic.AddReturn(returnId, bookId, employeeId, readerId);
+            _businessLogic.AddReturn(returnId, bookId, employeeId, readerId, intent, date);
         }
 
         public void RemoveReturn(int returnId)
         {
-            _businessLogic.RemoveReturn(returnId);
+          //  _businessLogic.RemoveReturn(returnId);
         }
 
         public IEnumerable<IReturnModel> GetAllReturns()

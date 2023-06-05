@@ -27,6 +27,9 @@ namespace DataLayer.Implementation
         DbSet<Return> Returns { set; get; }
         IQueryable<IReturn> IDataContext.Returns => Returns;
 
+        DbSet<Supplier> Suppliers { set; get; }
+        IQueryable<ISupplier> IDataContext.Suppliers => Suppliers;
+
         private readonly string _connectionString;
 
         private readonly string defaultConnectionString= "Data Source = (LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\documents\\universityT\\projects\\git2\\PT\\PT\\DataLayerTests\\TestDB\\Database1.mdf;Integrated Security = True";
@@ -63,6 +66,12 @@ namespace DataLayer.Implementation
             SaveChanges();
         }
 
+        public void AddSupplier(int supplierId, string name, string address, string phoneNumber, string email)
+        {
+            Suppliers.Add(new Supplier(supplierId, name, address, phoneNumber, email));
+            SaveChanges();
+        }
+
         public void AddRent(int rentId, int readerId, int bookId, int employeeId, string intent, DateTime timestamp) {
             Rents.Add(new Rent(rentId, readerId, bookId, employeeId, intent, timestamp));
             SaveChanges();
@@ -90,6 +99,12 @@ namespace DataLayer.Implementation
         public void RemoveReader(int readerId)
         {
             Readers.Remove((Reader)GetReaderById(readerId));
+            SaveChanges();
+        }
+
+        public void RemoveSupplier(int supplierId)
+        {
+            Suppliers.Remove((Supplier)GetReaderById(supplierId));
             SaveChanges();
         }
 
@@ -137,6 +152,20 @@ namespace DataLayer.Implementation
             return reader;
         }
 
+        public ISupplier GetSupplierById(int id)
+        {
+            var sup = (from s in Suppliers
+                          where s.SupplierId == id
+                          select s).FirstOrDefault();
+
+            if (sup == null)
+            {
+                throw new ArgumentException("Supplier not found");
+            }
+
+            return sup;
+        }
+
         public IRent GetRentById(int id) {
 
             var rent = (from r in Rents
@@ -182,6 +211,11 @@ namespace DataLayer.Implementation
         public IEnumerable<IReader> GetAllReaders()
         {
             return Readers.ToList();
+        }
+
+        public IEnumerable<ISupplier> GetAllSuppliers()
+        {
+            return Suppliers.ToList();
         }
 
         public IEnumerable<IRent> GetAllRents() { 
