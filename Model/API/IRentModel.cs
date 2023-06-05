@@ -8,13 +8,13 @@ namespace Model.API
 {
     public interface IRentModel
     {
-        string BookId { get; set; }
-        string ReaderId { get; set; }
-        string EmployeeId { get; set; }
-        string RentId { get; set; }
+        int BookId { get; set; }
+        int ReaderId { get; set; }
+        int EmployeeId { get; set; }
+        int RentId { get; set; }
 
-        void AddRent(string bookId, string readerId, string employeeId, string rentId);
-        void RemoveRent(string rentId);
+        void AddRent(int bookId, int readerId, int employeeId, int rentId);
+        void RemoveRent(int rentId);
         IEnumerable<IRentModel> GetAllRents();
     }
 }

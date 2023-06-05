@@ -8,13 +8,13 @@ namespace Model.API
 {
     public interface IReturnModel
     {
-        string BookId { get; set; }
-        string ReaderId { get; set; }
-        string EmployeeId { get; set; }
-        string ReturnId { get; set; }
+        int BookId { get; set; }
+        int ReaderId { get; set; }
+        int EmployeeId { get; set; }
+        int ReturnId { get; set; }
 
-        void AddReturn(string bookId, string readerId, string employeeId, string returnId);
-        void RemoveReturn(string returnId);
+        void AddReturn(int bookId, int readerId, int employeeId, int returnId);
+        void RemoveReturn(int returnId);
         IEnumerable<IReturnModel> GetAllReturns();
     }
 }

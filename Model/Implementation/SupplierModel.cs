@@ -1,49 +1,58 @@
-﻿using Model.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicLayer.API;
+using Model.API;
 
 namespace Model.Implementation
 {
     public class SupplierModel : ISupplierModel
     {
+        private readonly IBusinessLogic _businessLogic;
+
+        public SupplierModel()
+        {
+            _businessLogic = IBusinessLogic.BusinessLogicFactory();
+        }
+
+        public SupplierModel(IBusinessLogic bl)
+        {
+            _businessLogic = bl;
+        }
+
+        public int SupplierId { get; set; }
         public string Name { get; set; }
-        public string SupplierId { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
 
-        private List<ISupplierModel> supplierList;
-
-        public SupplierModel()
+        public void AddSupplier(int supplierId, string name, string phoneNumber, string address, string email)
         {
-            supplierList = new List<ISupplierModel>();
+            SupplierId = supplierId;
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Address = address;
+            Email = email;
+
+            _businessLogic.AddSupplier(supplierId, name, phoneNumber, address, email);
         }
 
-        public void AddSupplier(string name,  string supplierId, string phoneNumber, string address, string email)
+        public void RemoveSupplier(int supplierId)
         {
-            supplierList.Add(new SupplierModel
-            {
-                Name = name,
-                SupplierId = supplierId,
-                PhoneNumber = phoneNumber,
-                Address = address,
-                Email = email
-            });
-        }
-
-        public void RemoveSupplier(string supplierId)
-        {
-            var supplierToRemove = supplierList.Find(supplier => supplier.SupplierId == supplierId);
-            if (supplierToRemove != null)
-                supplierList.Remove(supplierToRemove);
+            _businessLogic.RemoveSupplier(supplierId);
         }
 
         public IEnumerable<ISupplierModel> GetAllSuppliers()
         {
-            return supplierList;
+            var suppliers = _businessLogic.GetAllSuppliers();
+
+            var supplierModels = suppliers.Select(supplier => new SupplierModel()
+            {
+                SupplierId = supplier.Id,
+                Name = supplier.Name,
+                PhoneNumber = supplier.PhoneNumber,
+                Address = supplier.Address,
+                Email = supplier.Email
+            });
+
+            return supplierModels;
         }
     }
 }

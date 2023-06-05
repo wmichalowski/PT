@@ -11,13 +11,13 @@ namespace Model.API
     {
         string Name { get; set; }
         string Surname { get; set; }
-        string ReaderId { get; set; }
+        int ReaderId { get; set; }
         string PhoneNumber { get; set; }
         string Address { get; set; }
         string Email { get; set; }
 
-        void AddReader(string name, string surname, string employeeId, string phoneNumber, string address, string email);
-        void RemoveReader(string employeeId);
+        void AddReader(string name, string surname, int readerId, string phoneNumber, string address, string email);
+        void RemoveReader(int readerId);
         IEnumerable<IReaderModel> GetAllReaders();
     }
 }

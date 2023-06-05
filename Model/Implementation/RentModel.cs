@@ -1,47 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicLayer.API;
 using Model.API;
 
 namespace Model.Implementation
 {
     public class RentModel : IRentModel
     {
-        public string BookId { get; set; }
-        public string ReaderId { get; set; }
-        public string EmployeeId { get; set; }
-        public string RentId { get; set; }
-
-        private List<IRentModel> rentList;
+        private readonly IBusinessLogic _businessLogic;
 
         public RentModel()
         {
-            rentList = new List<IRentModel>();
+            _businessLogic = IBusinessLogic.BusinessLogicFactory();
         }
 
-        public void AddRent(string bookId, string readerId, string employeeId, string rentId)
+        public RentModel(IBusinessLogic bl)
         {
-            rentList.Add(new RentModel
-            {
-                BookId = bookId,
-                ReaderId = readerId,
-                EmployeeId = employeeId,
-                RentId = rentId
-            });
+            _businessLogic = bl;
         }
 
-        public void RemoveRent(string rentId)
+        public int BookId { get; set; }
+        public int RentId { get; set; }
+        public int ReaderId { get; set; }
+        public int EmployeeId { get; set; }
+
+        public void AddRent(int bookId, int rentId, int readerId, int employeeId)
         {
-            var rentToRemove = rentList.Find(rent => rent.RentId == rentId);
-            if (rentToRemove != null)
-                rentList.Remove(rentToRemove);
+            BookId = bookId;
+            RentId = rentId;
+            ReaderId = readerId;
+            EmployeeId = employeeId;
+
+            _businessLogic.AddRent(bookId, rentId, readerId, employeeId);
+        }
+
+        public void RemoveRent(int rentId)
+        {
+            _businessLogic.RemoveRent(rentId);
         }
 
         public IEnumerable<IRentModel> GetAllRents()
         {
-            return rentList;
+            var rents = _businessLogic.GetAllRents();
+
+            var rentModels = rents.Select(rent => new RentModel()
+            {
+                BookId = rent.BookId,
+                RentId = rent.RentId,
+                ReaderId = rent.ReaderId,
+                EmployeeId = rent.EmployeeId
+            });
+
+            return rentModels;
         }
     }
 }

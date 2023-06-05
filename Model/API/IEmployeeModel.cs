@@ -11,13 +11,13 @@ namespace Model.API
     {
         string Name { get; set; }
         string Surname { get; set; }
-        string EmployeeId { get; set; }
+        int EmployeeId { get; set; }
         string PhoneNumber { get; set; }
         string Address { get; set; }
         string Email { get; set; }
 
-        void AddEmployee(string name, string surname, string employeeId, string phoneNumber, string address, string email);
-        void RemoveEmployee(string employeeId);
+        void AddEmployee(string name, string surname, int employeeId, string phoneNumber, string address, string email);
+        void RemoveEmployee(int employeeId);
         IEnumerable<IEmployeeModel> GetAllEmployees();
     }
 }

@@ -1,47 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicLayer.API;
 using Model.API;
 
 namespace Model.Implementation
 {
     public class ReturnModel : IReturnModel
     {
-        public string BookId { get; set; }
-        public string ReaderId { get; set; }
-        public string EmployeeId { get; set; }
-        public string ReturnId { get; set; }
-
-        private List<IReturnModel> returnList;
+        private readonly IBusinessLogic _businessLogic;
 
         public ReturnModel()
         {
-            returnList = new List<IReturnModel>();
+            _businessLogic = IBusinessLogic.BusinessLogicFactory();
         }
 
-        public void AddReturn(string bookId, string readerId, string employeeId, string returnId)
+        public ReturnModel(IBusinessLogic bl)
         {
-            returnList.Add(new ReturnModel
-            {
-                BookId = bookId,
-                ReaderId = readerId,
-                EmployeeId = employeeId,
-                ReturnId = returnId
-            });
+            _businessLogic = bl;
         }
 
-        public void RemoveReturn(string returnId)
+        public int ReturnId { get; set; }
+        public int BookId { get; set; }
+        public int EmployeeId { get; set; }
+        public int ReaderId { get; set; }
+
+        public void AddReturn(int returnId, int bookId, int employeeId, int readerId)
         {
-            var returnToRemove = returnList.Find(returned => returned.ReturnId == ReturnId);
-            if (returnToRemove != null)
-                returnList.Remove(returnToRemove);
+            ReturnId = returnId;
+            BookId = bookId;
+            EmployeeId = employeeId;
+            ReaderId = readerId;
+
+            _businessLogic.AddReturn(returnId, bookId, employeeId, readerId);
+        }
+
+        public void RemoveReturn(int returnId)
+        {
+            _businessLogic.RemoveReturn(returnId);
         }
 
         public IEnumerable<IReturnModel> GetAllReturns()
         {
-            return returnList;
+            var returns = _businessLogic.GetAllReturns();
+
+            var returnModels = returns.Select(returnData => new ReturnModel()
+            {
+                ReturnId = returnData.ReturnId,
+                BookId = returnData.BookId,
+                EmployeeId = returnData.EmployeeId,
+                ReaderId = returnData.ReaderId
+            });
+
+            return returnModels;
         }
     }
 }
