@@ -3,6 +3,58 @@
     <Type Name="Book">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Book_Rent" Member="Rents" ThisKey="Id" OtherKey="BookId" Type="Rent" />
+      <Association Name="Book_Return" Member="Returns" ThisKey="Id" OtherKey="BookId" Type="Return" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Employee_Rent" Member="Rents" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Rent" />
+      <Association Name="Employee_Return" Member="Returns" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Return" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Readers" Member="Readers">
+    <Type Name="Reader">
+      <Column Name="ReaderId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Reader_Rent" Member="Rents" ThisKey="ReaderId" OtherKey="ReaderId" Type="Rent" />
+      <Association Name="Reader_Return" Member="Returns" ThisKey="ReaderId" OtherKey="ReaderId" Type="Return" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rents" Member="Rents">
+    <Type Name="Rent">
+      <Column Name="RentId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ReaderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Intent" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Book_Rent" Member="Book" ThisKey="BookId" OtherKey="Id" Type="Book" IsForeignKey="true" />
+      <Association Name="Employee_Rent" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Reader_Rent" Member="Reader" ThisKey="ReaderId" OtherKey="ReaderId" Type="Reader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Returns]" Member="Returns">
+    <Type Name="Return">
+      <Column Name="ReturnId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ReaderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Intent" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Book_Return" Member="Book" ThisKey="BookId" OtherKey="Id" Type="Book" IsForeignKey="true" />
+      <Association Name="Employee_Return" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Reader_Return" Member="Reader" ThisKey="ReaderId" OtherKey="ReaderId" Type="Reader" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

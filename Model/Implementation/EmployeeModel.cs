@@ -26,12 +26,12 @@ namespace Model.Implementation
 
         public void AddEmployee(string name, string surname, int employeeId, string phoneNumber, string address, string email)
         {
-                Name = name,
-                Surname = surname,
-                EmployeeId = employeeId,
-                PhoneNumber = phoneNumber,
-                Address = address,
-                Email = email
+            Name = name;
+            Surname = surname;
+            EmployeeId = employeeId;
+            PhoneNumber = phoneNumber;
+            Address = address;
+            Email = email;
 
                 _businessLogic.AddEmployee(name, surname, employeeId, phoneNumber, address, email);
 

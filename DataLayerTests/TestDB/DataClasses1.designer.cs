@@ -33,6 +33,18 @@ namespace DataLayerTests.TestDB
     partial void InsertBook(Book instance);
     partial void UpdateBook(Book instance);
     partial void DeleteBook(Book instance);
+    partial void InsertEmployee(Employee instance);
+    partial void UpdateEmployee(Employee instance);
+    partial void DeleteEmployee(Employee instance);
+    partial void InsertReader(Reader instance);
+    partial void UpdateReader(Reader instance);
+    partial void DeleteReader(Reader instance);
+    partial void InsertRent(Rent instance);
+    partial void UpdateRent(Rent instance);
+    partial void DeleteRent(Rent instance);
+    partial void InsertReturn(Return instance);
+    partial void UpdateReturn(Return instance);
+    partial void DeleteReturn(Return instance);
     #endregion
 		
 		public DataClasses1DataContext(string connection) : 
@@ -66,6 +78,38 @@ namespace DataLayerTests.TestDB
 				return this.GetTable<Book>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Employee> Employees
+		{
+			get
+			{
+				return this.GetTable<Employee>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Reader> Readers
+		{
+			get
+			{
+				return this.GetTable<Reader>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Rent> Rents
+		{
+			get
+			{
+				return this.GetTable<Rent>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Return> Returns
+		{
+			get
+			{
+				return this.GetTable<Return>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Books")]
@@ -77,6 +121,10 @@ namespace DataLayerTests.TestDB
 		private int _Id;
 		
 		private string _Title;
+		
+		private EntitySet<Rent> _Rents;
+		
+		private EntitySet<Return> _Returns;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -90,6 +138,8 @@ namespace DataLayerTests.TestDB
 		
 		public Book()
 		{
+			this._Rents = new EntitySet<Rent>(new Action<Rent>(this.attach_Rents), new Action<Rent>(this.detach_Rents));
+			this._Returns = new EntitySet<Return>(new Action<Return>(this.attach_Returns), new Action<Return>(this.detach_Returns));
 			OnCreated();
 		}
 		
@@ -129,6 +179,1142 @@ namespace DataLayerTests.TestDB
 					this._Title = value;
 					this.SendPropertyChanged("Title");
 					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Rent", Storage="_Rents", ThisKey="Id", OtherKey="BookId")]
+		public EntitySet<Rent> Rents
+		{
+			get
+			{
+				return this._Rents;
+			}
+			set
+			{
+				this._Rents.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Return", Storage="_Returns", ThisKey="Id", OtherKey="BookId")]
+		public EntitySet<Return> Returns
+		{
+			get
+			{
+				return this._Returns;
+			}
+			set
+			{
+				this._Returns.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Rents(Rent entity)
+		{
+			this.SendPropertyChanging();
+			entity.Book = this;
+		}
+		
+		private void detach_Rents(Rent entity)
+		{
+			this.SendPropertyChanging();
+			entity.Book = null;
+		}
+		
+		private void attach_Returns(Return entity)
+		{
+			this.SendPropertyChanging();
+			entity.Book = this;
+		}
+		
+		private void detach_Returns(Return entity)
+		{
+			this.SendPropertyChanging();
+			entity.Book = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Employees")]
+	public partial class Employee : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _EmployeeId;
+		
+		private string _Name;
+		
+		private string _Surname;
+		
+		private string _Address;
+		
+		private string _PhoneNumber;
+		
+		private string _Email;
+		
+		private EntitySet<Rent> _Rents;
+		
+		private EntitySet<Return> _Returns;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEmployeeIdChanging(int value);
+    partial void OnEmployeeIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSurnameChanging(string value);
+    partial void OnSurnameChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnPhoneNumberChanging(string value);
+    partial void OnPhoneNumberChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    #endregion
+		
+		public Employee()
+		{
+			this._Rents = new EntitySet<Rent>(new Action<Rent>(this.attach_Rents), new Action<Rent>(this.detach_Rents));
+			this._Returns = new EntitySet<Return>(new Action<Return>(this.attach_Returns), new Action<Return>(this.detach_Returns));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int EmployeeId
+		{
+			get
+			{
+				return this._EmployeeId;
+			}
+			set
+			{
+				if ((this._EmployeeId != value))
+				{
+					this.OnEmployeeIdChanging(value);
+					this.SendPropertyChanging();
+					this._EmployeeId = value;
+					this.SendPropertyChanged("EmployeeId");
+					this.OnEmployeeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Surname
+		{
+			get
+			{
+				return this._Surname;
+			}
+			set
+			{
+				if ((this._Surname != value))
+				{
+					this.OnSurnameChanging(value);
+					this.SendPropertyChanging();
+					this._Surname = value;
+					this.SendPropertyChanged("Surname");
+					this.OnSurnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="NVarChar(50)")]
+		public string PhoneNumber
+		{
+			get
+			{
+				return this._PhoneNumber;
+			}
+			set
+			{
+				if ((this._PhoneNumber != value))
+				{
+					this.OnPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PhoneNumber = value;
+					this.SendPropertyChanged("PhoneNumber");
+					this.OnPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Rent", Storage="_Rents", ThisKey="EmployeeId", OtherKey="EmployeeId")]
+		public EntitySet<Rent> Rents
+		{
+			get
+			{
+				return this._Rents;
+			}
+			set
+			{
+				this._Rents.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Return", Storage="_Returns", ThisKey="EmployeeId", OtherKey="EmployeeId")]
+		public EntitySet<Return> Returns
+		{
+			get
+			{
+				return this._Returns;
+			}
+			set
+			{
+				this._Returns.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Rents(Rent entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = this;
+		}
+		
+		private void detach_Rents(Rent entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = null;
+		}
+		
+		private void attach_Returns(Return entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = this;
+		}
+		
+		private void detach_Returns(Return entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Readers")]
+	public partial class Reader : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ReaderId;
+		
+		private string _Name;
+		
+		private string _Surname;
+		
+		private string _Address;
+		
+		private string _PhoneNumber;
+		
+		private string _Email;
+		
+		private EntitySet<Rent> _Rents;
+		
+		private EntitySet<Return> _Returns;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnReaderIdChanging(int value);
+    partial void OnReaderIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSurnameChanging(string value);
+    partial void OnSurnameChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnPhoneNumberChanging(string value);
+    partial void OnPhoneNumberChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    #endregion
+		
+		public Reader()
+		{
+			this._Rents = new EntitySet<Rent>(new Action<Rent>(this.attach_Rents), new Action<Rent>(this.detach_Rents));
+			this._Returns = new EntitySet<Return>(new Action<Return>(this.attach_Returns), new Action<Return>(this.detach_Returns));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ReaderId
+		{
+			get
+			{
+				return this._ReaderId;
+			}
+			set
+			{
+				if ((this._ReaderId != value))
+				{
+					this.OnReaderIdChanging(value);
+					this.SendPropertyChanging();
+					this._ReaderId = value;
+					this.SendPropertyChanged("ReaderId");
+					this.OnReaderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Surname
+		{
+			get
+			{
+				return this._Surname;
+			}
+			set
+			{
+				if ((this._Surname != value))
+				{
+					this.OnSurnameChanging(value);
+					this.SendPropertyChanging();
+					this._Surname = value;
+					this.SendPropertyChanged("Surname");
+					this.OnSurnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="NVarChar(50)")]
+		public string PhoneNumber
+		{
+			get
+			{
+				return this._PhoneNumber;
+			}
+			set
+			{
+				if ((this._PhoneNumber != value))
+				{
+					this.OnPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PhoneNumber = value;
+					this.SendPropertyChanged("PhoneNumber");
+					this.OnPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_Rent", Storage="_Rents", ThisKey="ReaderId", OtherKey="ReaderId")]
+		public EntitySet<Rent> Rents
+		{
+			get
+			{
+				return this._Rents;
+			}
+			set
+			{
+				this._Rents.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_Return", Storage="_Returns", ThisKey="ReaderId", OtherKey="ReaderId")]
+		public EntitySet<Return> Returns
+		{
+			get
+			{
+				return this._Returns;
+			}
+			set
+			{
+				this._Returns.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Rents(Rent entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reader = this;
+		}
+		
+		private void detach_Rents(Rent entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reader = null;
+		}
+		
+		private void attach_Returns(Return entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reader = this;
+		}
+		
+		private void detach_Returns(Return entity)
+		{
+			this.SendPropertyChanging();
+			entity.Reader = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rents")]
+	public partial class Rent : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RentId;
+		
+		private int _ReaderId;
+		
+		private int _BookId;
+		
+		private int _EmployeeId;
+		
+		private string _Intent;
+		
+		private System.Nullable<System.DateTime> _Timestamp;
+		
+		private EntityRef<Book> _Book;
+		
+		private EntityRef<Employee> _Employee;
+		
+		private EntityRef<Reader> _Reader;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRentIdChanging(int value);
+    partial void OnRentIdChanged();
+    partial void OnReaderIdChanging(int value);
+    partial void OnReaderIdChanged();
+    partial void OnBookIdChanging(int value);
+    partial void OnBookIdChanged();
+    partial void OnEmployeeIdChanging(int value);
+    partial void OnEmployeeIdChanged();
+    partial void OnIntentChanging(string value);
+    partial void OnIntentChanged();
+    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimestampChanged();
+    #endregion
+		
+		public Rent()
+		{
+			this._Book = default(EntityRef<Book>);
+			this._Employee = default(EntityRef<Employee>);
+			this._Reader = default(EntityRef<Reader>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RentId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int RentId
+		{
+			get
+			{
+				return this._RentId;
+			}
+			set
+			{
+				if ((this._RentId != value))
+				{
+					this.OnRentIdChanging(value);
+					this.SendPropertyChanging();
+					this._RentId = value;
+					this.SendPropertyChanged("RentId");
+					this.OnRentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderId", DbType="Int NOT NULL")]
+		public int ReaderId
+		{
+			get
+			{
+				return this._ReaderId;
+			}
+			set
+			{
+				if ((this._ReaderId != value))
+				{
+					if (this._Reader.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReaderIdChanging(value);
+					this.SendPropertyChanging();
+					this._ReaderId = value;
+					this.SendPropertyChanged("ReaderId");
+					this.OnReaderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookId", DbType="Int NOT NULL")]
+		public int BookId
+		{
+			get
+			{
+				return this._BookId;
+			}
+			set
+			{
+				if ((this._BookId != value))
+				{
+					if (this._Book.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBookIdChanging(value);
+					this.SendPropertyChanging();
+					this._BookId = value;
+					this.SendPropertyChanged("BookId");
+					this.OnBookIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int NOT NULL")]
+		public int EmployeeId
+		{
+			get
+			{
+				return this._EmployeeId;
+			}
+			set
+			{
+				if ((this._EmployeeId != value))
+				{
+					if (this._Employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEmployeeIdChanging(value);
+					this.SendPropertyChanging();
+					this._EmployeeId = value;
+					this.SendPropertyChanged("EmployeeId");
+					this.OnEmployeeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Intent", DbType="NVarChar(50)")]
+		public string Intent
+		{
+			get
+			{
+				return this._Intent;
+			}
+			set
+			{
+				if ((this._Intent != value))
+				{
+					this.OnIntentChanging(value);
+					this.SendPropertyChanging();
+					this._Intent = value;
+					this.SendPropertyChanged("Intent");
+					this.OnIntentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="Date")]
+		public System.Nullable<System.DateTime> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Rent", Storage="_Book", ThisKey="BookId", OtherKey="Id", IsForeignKey=true)]
+		public Book Book
+		{
+			get
+			{
+				return this._Book.Entity;
+			}
+			set
+			{
+				Book previousValue = this._Book.Entity;
+				if (((previousValue != value) 
+							|| (this._Book.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Book.Entity = null;
+						previousValue.Rents.Remove(this);
+					}
+					this._Book.Entity = value;
+					if ((value != null))
+					{
+						value.Rents.Add(this);
+						this._BookId = value.Id;
+					}
+					else
+					{
+						this._BookId = default(int);
+					}
+					this.SendPropertyChanged("Book");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Rent", Storage="_Employee", ThisKey="EmployeeId", OtherKey="EmployeeId", IsForeignKey=true)]
+		public Employee Employee
+		{
+			get
+			{
+				return this._Employee.Entity;
+			}
+			set
+			{
+				Employee previousValue = this._Employee.Entity;
+				if (((previousValue != value) 
+							|| (this._Employee.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employee.Entity = null;
+						previousValue.Rents.Remove(this);
+					}
+					this._Employee.Entity = value;
+					if ((value != null))
+					{
+						value.Rents.Add(this);
+						this._EmployeeId = value.EmployeeId;
+					}
+					else
+					{
+						this._EmployeeId = default(int);
+					}
+					this.SendPropertyChanged("Employee");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_Rent", Storage="_Reader", ThisKey="ReaderId", OtherKey="ReaderId", IsForeignKey=true)]
+		public Reader Reader
+		{
+			get
+			{
+				return this._Reader.Entity;
+			}
+			set
+			{
+				Reader previousValue = this._Reader.Entity;
+				if (((previousValue != value) 
+							|| (this._Reader.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Reader.Entity = null;
+						previousValue.Rents.Remove(this);
+					}
+					this._Reader.Entity = value;
+					if ((value != null))
+					{
+						value.Rents.Add(this);
+						this._ReaderId = value.ReaderId;
+					}
+					else
+					{
+						this._ReaderId = default(int);
+					}
+					this.SendPropertyChanged("Reader");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Returns]")]
+	public partial class Return : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ReturnId;
+		
+		private int _ReaderId;
+		
+		private int _BookId;
+		
+		private int _EmployeeId;
+		
+		private string _Intent;
+		
+		private System.Nullable<System.DateTime> _Timestamp;
+		
+		private EntityRef<Book> _Book;
+		
+		private EntityRef<Employee> _Employee;
+		
+		private EntityRef<Reader> _Reader;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnReturnIdChanging(int value);
+    partial void OnReturnIdChanged();
+    partial void OnReaderIdChanging(int value);
+    partial void OnReaderIdChanged();
+    partial void OnBookIdChanging(int value);
+    partial void OnBookIdChanged();
+    partial void OnEmployeeIdChanging(int value);
+    partial void OnEmployeeIdChanged();
+    partial void OnIntentChanging(string value);
+    partial void OnIntentChanged();
+    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimestampChanged();
+    #endregion
+		
+		public Return()
+		{
+			this._Book = default(EntityRef<Book>);
+			this._Employee = default(EntityRef<Employee>);
+			this._Reader = default(EntityRef<Reader>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReturnId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ReturnId
+		{
+			get
+			{
+				return this._ReturnId;
+			}
+			set
+			{
+				if ((this._ReturnId != value))
+				{
+					this.OnReturnIdChanging(value);
+					this.SendPropertyChanging();
+					this._ReturnId = value;
+					this.SendPropertyChanged("ReturnId");
+					this.OnReturnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReaderId", DbType="Int NOT NULL")]
+		public int ReaderId
+		{
+			get
+			{
+				return this._ReaderId;
+			}
+			set
+			{
+				if ((this._ReaderId != value))
+				{
+					if (this._Reader.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReaderIdChanging(value);
+					this.SendPropertyChanging();
+					this._ReaderId = value;
+					this.SendPropertyChanged("ReaderId");
+					this.OnReaderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookId", DbType="Int NOT NULL")]
+		public int BookId
+		{
+			get
+			{
+				return this._BookId;
+			}
+			set
+			{
+				if ((this._BookId != value))
+				{
+					if (this._Book.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBookIdChanging(value);
+					this.SendPropertyChanging();
+					this._BookId = value;
+					this.SendPropertyChanged("BookId");
+					this.OnBookIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int NOT NULL")]
+		public int EmployeeId
+		{
+			get
+			{
+				return this._EmployeeId;
+			}
+			set
+			{
+				if ((this._EmployeeId != value))
+				{
+					if (this._Employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEmployeeIdChanging(value);
+					this.SendPropertyChanging();
+					this._EmployeeId = value;
+					this.SendPropertyChanged("EmployeeId");
+					this.OnEmployeeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Intent", DbType="NVarChar(50)")]
+		public string Intent
+		{
+			get
+			{
+				return this._Intent;
+			}
+			set
+			{
+				if ((this._Intent != value))
+				{
+					this.OnIntentChanging(value);
+					this.SendPropertyChanging();
+					this._Intent = value;
+					this.SendPropertyChanged("Intent");
+					this.OnIntentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="Date")]
+		public System.Nullable<System.DateTime> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Return", Storage="_Book", ThisKey="BookId", OtherKey="Id", IsForeignKey=true)]
+		public Book Book
+		{
+			get
+			{
+				return this._Book.Entity;
+			}
+			set
+			{
+				Book previousValue = this._Book.Entity;
+				if (((previousValue != value) 
+							|| (this._Book.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Book.Entity = null;
+						previousValue.Returns.Remove(this);
+					}
+					this._Book.Entity = value;
+					if ((value != null))
+					{
+						value.Returns.Add(this);
+						this._BookId = value.Id;
+					}
+					else
+					{
+						this._BookId = default(int);
+					}
+					this.SendPropertyChanged("Book");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Return", Storage="_Employee", ThisKey="EmployeeId", OtherKey="EmployeeId", IsForeignKey=true)]
+		public Employee Employee
+		{
+			get
+			{
+				return this._Employee.Entity;
+			}
+			set
+			{
+				Employee previousValue = this._Employee.Entity;
+				if (((previousValue != value) 
+							|| (this._Employee.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employee.Entity = null;
+						previousValue.Returns.Remove(this);
+					}
+					this._Employee.Entity = value;
+					if ((value != null))
+					{
+						value.Returns.Add(this);
+						this._EmployeeId = value.EmployeeId;
+					}
+					else
+					{
+						this._EmployeeId = default(int);
+					}
+					this.SendPropertyChanged("Employee");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Reader_Return", Storage="_Reader", ThisKey="ReaderId", OtherKey="ReaderId", IsForeignKey=true)]
+		public Reader Reader
+		{
+			get
+			{
+				return this._Reader.Entity;
+			}
+			set
+			{
+				Reader previousValue = this._Reader.Entity;
+				if (((previousValue != value) 
+							|| (this._Reader.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Reader.Entity = null;
+						previousValue.Returns.Remove(this);
+					}
+					this._Reader.Entity = value;
+					if ((value != null))
+					{
+						value.Returns.Add(this);
+						this._ReaderId = value.ReaderId;
+					}
+					else
+					{
+						this._ReaderId = default(int);
+					}
+					this.SendPropertyChanged("Reader");
 				}
 			}
 		}
