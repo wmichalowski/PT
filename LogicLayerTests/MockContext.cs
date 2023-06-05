@@ -13,9 +13,9 @@ namespace LogicLayerTests
 
         public IQueryable<IBook> Books => _books.AsQueryable();
 
-        public void AddBook(int id, string name)
+        public void AddBook(int id, string title, string author, string category, string publisher)
         {
-            _books.Add(new MockBook(id, name));
+            _books.Add(new MockBook(id, title, author, category, publisher));
         }
 
         public IEnumerable<IBook> GetAllBooks()

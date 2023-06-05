@@ -13,7 +13,7 @@ namespace DataLayer.API
 
         public static IDataContext DataContextFactory(string? connectionString = null) => new DataContext(connectionString);
 
-        public abstract void AddBook(int id, string name);
+        public abstract void AddBook(int id, string title, string author, string category, string publisher);
         public abstract void RemoveBook(int id);
         public abstract IBook GetBookById(int id);
         public abstract IEnumerable<IBook> GetAllBooks();

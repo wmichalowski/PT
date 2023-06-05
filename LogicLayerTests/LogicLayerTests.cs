@@ -9,43 +9,41 @@ namespace LogicLayerTests
         [TestMethod]
         public void UpdateBook_Should_UpdateBook_WhenBookExists()
         {
-            // Arrange
             int id = 1;
             string title = "New Title";
+            string author = "John Doe";
+            string category = "Fiction";
+            string publisher = "ABC Publishers";
 
-            // Create an instance of the MockContext
             MockContext mockContext = new MockContext();
+            mockContext.AddBook(id, "Old Title", "Old Author", "Old Category", "Old Publisher");
 
-            // Add a book to the context
-            mockContext.AddBook(id, "Old Title");
-
-            // Create an instance of the BusinessLogic class with the mock context
             IBusinessLogic businessLogic = IBusinessLogic.BusinessLogicFactory(mockContext);
 
-            // Act
-            businessLogic.updateBook(id, title);
+            businessLogic.updateBook(id, title, author, category, publisher);
 
-            // Assert
             Assert.AreEqual(1, mockContext.Books.Count());
             Assert.AreEqual(id, mockContext.Books.First().Id);
             Assert.AreEqual(title, mockContext.Books.First().Title);
+            Assert.AreEqual(author, mockContext.Books.First().Author);
+            Assert.AreEqual(category, mockContext.Books.First().Category);
+            Assert.AreEqual(publisher, mockContext.Books.First().Publisher);
         }
 
         [TestMethod]
         public void UpdateBook_Should_ThrowException_WhenBookDoesNotExist()
         {
-            // Arrange
             int id = 1;
             string title = "New Title";
+            string author = "John Doe";
+            string category = "Fiction";
+            string publisher = "ABC Publishers";
 
-            // Create an empty instance of the MockContext
             MockContext mockContext = new MockContext();
 
-            // Create an instance of the BusinessLogic class with the empty mock context
             IBusinessLogic businessLogic = IBusinessLogic.BusinessLogicFactory(mockContext);
 
-            // Act and Assert
-            Assert.ThrowsException<Exception>(() => businessLogic.updateBook(id, title));
+            Assert.ThrowsException<Exception>(() => businessLogic.updateBook(id, title, author, category, publisher));
         }
     }
 }

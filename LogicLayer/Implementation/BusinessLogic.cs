@@ -18,9 +18,9 @@ namespace LogicLayer.Implementation
             this.dataContext = dataContext;
         }
 
-        public void AddBook(int Id, string Title)
+        public void AddBook(int Id, string title, string author, string category, string publisher)
         {
-            dataContext.AddBook(Id, Title);
+            dataContext.AddBook(Id, title, author, category, publisher);
         }
 
         public IEnumerable<IBook> GetAllBooks()
@@ -33,13 +33,13 @@ namespace LogicLayer.Implementation
             dataContext.RemoveBook(Id);
         }
 
-        public void updateBook(int Id, string Title)
+        public void updateBook(int Id, string title, string author, string category, string publisher)
         {
             IEnumerable<IBook> allBooks = dataContext.GetAllBooks();
             if (allBooks.Any(b => b.Id == Id))
             {
                 dataContext.RemoveBook(Id);
-                dataContext.AddBook(Id, Title);
+                dataContext.AddBook(Id, title, author, category, publisher);
             }
             else {
                 throw new Exception("book does not exist!!!");

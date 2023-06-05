@@ -11,5 +11,8 @@ namespace DataLayer.API
     {
         int Id { get; }
         string Title { get; }
+        string Author { get; }
+        string Category { get; }
+        string Publisher { get; }
     }
 }

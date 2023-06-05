@@ -22,7 +22,7 @@ namespace View.SelectedThing
     {
         public SelectedBook()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

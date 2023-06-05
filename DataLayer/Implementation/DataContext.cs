@@ -17,7 +17,7 @@ namespace DataLayer.Implementation
 
         private readonly string _connectionString;
 
-        private readonly string defaultConnectionString= "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\documents\\university\\PT\\POC\\DataLayerTests\\TestDB\\Database1.mdf;Integrated Security=True";
+        private readonly string defaultConnectionString= "Data Source = (LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\documents\\university\\PT\\projects\\git2\\PT\\PT\\DataLayerTests\\TestDB\\Database1.mdf;Integrated Security = True";
 
         public DataContext(string? connectionString = null)
         {
@@ -31,9 +31,9 @@ namespace DataLayer.Implementation
 
         }
 
-        public void AddBook(int id, string name)
+        public void AddBook(int id, string title, string author, string category, string publisher)
         {
-            Books.Add(new Book(id, name));
+            Books.Add(new Book(id, title, author, category, publisher));
             SaveChanges();
         }
 
@@ -45,7 +45,16 @@ namespace DataLayer.Implementation
 
         public IBook GetBookById(int id)
         {
-            return Books.FirstOrDefault(book => book.Id == id) ?? throw new ArgumentException("Book not found");       
+            var book = (from b in Books
+                        where b.Id == id
+                        select b).FirstOrDefault();
+
+            if (book == null)
+            {
+                throw new ArgumentException("Book not found");
+            }
+
+            return book;
         }
 
         public IEnumerable<IBook> GetAllBooks()

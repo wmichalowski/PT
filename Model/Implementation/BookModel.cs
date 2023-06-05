@@ -1,50 +1,58 @@
 ﻿using LogicLayer.API;
 using Model.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model.Implementation
 {
     public class BookModel : IBookModel
     {
+        private readonly IBusinessLogic _businessLogic;
+
+        public BookModel()
+        {
+            _businessLogic = IBusinessLogic.BusinessLogicFactory();
+        }
+
+        public BookModel(IBusinessLogic bl)
+        {
+            _businessLogic = bl;
+        }
+
         public int BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Category { get; set; }
         public string Publisher { get; set; }
 
-        private List<BookModel> bookList;
-
-        public BookModel()
-        {
-            bookList = new List<BookModel>();
-        }
-
         public void AddBook(int bookId, string title, string author, string category, string publisher)
         {
-            bookList.Add(new BookModel
-            {
-                BookId = bookId,
-                Title = title,
-                Author = author,
-                Category = category,
-                Publisher = publisher
-            });
+            BookId = bookId;
+            Title = title;
+            Author = author;
+            Category = category;
+            Publisher = publisher;
+
+            _businessLogic.AddBook(bookId, title, author, category, publisher);
         }
 
         public void RemoveBook(int bookId)
         {
-            var bookToRemove = bookList.Find(book => book.BookId == bookId);
-            if (bookToRemove != null)
-                bookList.Remove(bookToRemove);
+            _businessLogic.RemoveBook(bookId);
         }
 
         public IEnumerable<IBookModel> GetAllBooks()
         {
-            return bookList;
+            var books = _businessLogic.GetAllBooks();
+
+            var bookModels = books.Select(book => new BookModel()
+            {
+                BookId = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Category = book.Category,
+                Publisher = book.Publisher
+            }) ;
+
+            return bookModels;
         }
     }
 }

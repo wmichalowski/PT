@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicLayer.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,90 +7,79 @@ using System.Threading.Tasks;
 
 namespace LogicLayerTests
 {
-    [TestFixture]
+    [TestClass]
     public class MockContextTests
     {
-        [Test]
+        [TestMethod]
         public void AddBook_Should_AddBookToList()
         {
-            // Arrange
             MockContext context = new MockContext();
             int id = 1;
             string name = "Book 1";
+            string author = "John Doe";
+            string category = "Fiction";
+            string publisher = "ABC Publishers";
 
-            // Act
-            context.AddBook(id, name);
+            context.AddBook(id, name, author, category, publisher);
 
-            // Assert
             Assert.AreEqual(1, context.Books.Count());
             Assert.AreEqual(id, context.Books.First().Id);
-            Assert.AreEqual(name, context.Books.First().Name);
+            Assert.AreEqual(name, context.Books.First().Title);
         }
 
-        [Test]
+        [TestMethod]
         public void GetAllBooks_Should_ReturnAllBooks()
         {
-            // Arrange
             MockContext context = new MockContext();
-            context.AddBook(1, "Book 1");
-            context.AddBook(2, "Book 2");
-            context.AddBook(3, "Book 3");
+            context.AddBook(1, "Book 1", "Author 1", "Category 1", "Publisher 1");
+            context.AddBook(2, "Book 2", "Author 2", "Category 2", "Publisher 2");
+            context.AddBook(3, "Book 3", "Author 3", "Category 3", "Publisher 3");
 
-            // Act
             var allBooks = context.GetAllBooks();
 
-            // Assert
             Assert.AreEqual(3, allBooks.Count());
             CollectionAssert.AreEquivalent(context.Books.ToList(), allBooks.ToList());
         }
 
-        [Test]
+        [TestMethod]
         public void GetBookById_Should_ReturnCorrectBook()
         {
-            // Arrange
             MockContext context = new MockContext();
-            context.AddBook(1, "Book 1");
-            context.AddBook(2, "Book 2");
-            context.AddBook(3, "Book 3");
+            context.AddBook(1, "Book 1", "Author 1", "Category 1", "Publisher 1");
+            context.AddBook(2, "Book 2", "Author 2", "Category 2", "Publisher 2");
+            context.AddBook(3, "Book 3", "Author 3", "Category 3", "Publisher 3");
             int idToFind = 2;
 
-            // Act
             var book = context.GetBookById(idToFind);
 
-            // Assert
             Assert.IsNotNull(book);
             Assert.AreEqual(idToFind, book.Id);
         }
 
-        [Test]
-        public void GetBookById_Should_ReturnNull_WhenBookNotFound()
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void GetBookById_Should_ThrowException_WhenBookNotFound()
         {
-            // Arrange
             MockContext context = new MockContext();
-            context.AddBook(1, "Book 1");
-            context.AddBook(2, "Book 2");
+            context.AddBook(1, "Book 1", "Author 1", "Category 1", "Publisher 1");
+            context.AddBook(2, "Book 2", "Author 2", "Category 2", "Publisher 2");
             int idToFind = 3;
 
-            // Act
             var book = context.GetBookById(idToFind);
 
-            // Assert
             Assert.IsNull(book);
         }
 
-        [Test]
+        [TestMethod]
         public void RemoveBook_Should_RemoveBookFromList()
         {
-            // Arrange
             MockContext context = new MockContext();
-            context.AddBook(1, "Book 1");
-            context.AddBook(2, "Book 2");
+            context.AddBook(1, "Book 1", "Author 1", "Category 1", "Publisher 1");
+            context.AddBook(2, "Book 2", "Author 2", "Category 2", "Publisher 2");
             int idToRemove = 1;
 
-            // Act
             context.RemoveBook(idToRemove);
 
-            // Assert
             Assert.AreEqual(1, context.Books.Count());
             Assert.IsFalse(context.Books.Any(b => b.Id == idToRemove));
         }

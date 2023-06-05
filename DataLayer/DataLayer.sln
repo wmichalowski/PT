@@ -3,21 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer.csproj", "{67A61717-BD58-4183-8BD8-57D464108304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer.csproj", "{67A61717-BD58-4183-8BD8-57D464108304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "..\LogicLayer\LogicLayer.csproj", "{E7CF939B-6347-486C-8DB5-061A2ED85504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "..\LogicLayer\LogicLayer.csproj", "{E7CF939B-6347-486C-8DB5-061A2ED85504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "..\View\View.csproj", "{F316CD31-9FD3-4735-9F47-604DCA68AFCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "..\View\View.csproj", "{F316CD31-9FD3-4735-9F47-604DCA68AFCD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A7D3DAE5-1A08-4355-9B36-8D3AD6AA74E5} = {A7D3DAE5-1A08-4355-9B36-8D3AD6AA74E5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "..\Model\Model.csproj", "{770C373A-F543-486A-BBA5-A4B5F7F29436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "..\Model\Model.csproj", "{770C373A-F543-486A-BBA5-A4B5F7F29436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "..\ViewModel\ViewModel.csproj", "{A7D3DAE5-1A08-4355-9B36-8D3AD6AA74E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "..\ViewModel\ViewModel.csproj", "{A7D3DAE5-1A08-4355-9B36-8D3AD6AA74E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayerTests", "..\DataLayerTests\DataLayerTests.csproj", "{4B4EDF83-7F90-4C5B-9BEE-FCB3A1800470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayerTests", "..\DataLayerTests\DataLayerTests.csproj", "{4B4EDF83-7F90-4C5B-9BEE-FCB3A1800470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayerTests", "..\LogicLayerTests\LogicLayerTests.csproj", "{6CB6C52A-B180-40C0-BAC8-9A074E358DE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayerTests", "..\LogicLayerTests\LogicLayerTests.csproj", "{6CB6C52A-B180-40C0-BAC8-9A074E358DE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMTests", "..\MVTests\MVVMTests.csproj", "{66F0CD69-7546-4350-9121-1EF52C2A32DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVVMTests", "..\MVTests\MVVMTests.csproj", "{66F0CD69-7546-4350-9121-1EF52C2A32DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
