@@ -4,28 +4,50 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:View"
+             xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#FFE5E5E5">
-        <Rectangle HorizontalAlignment="Center" Height="38" Margin="0,29,0,0" Stroke="Black" VerticalAlignment="Top" Width="428"/>
-        <TextBlock HorizontalAlignment="Center" Height="16" Margin="0,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108"><Run Language="pl-pl" Text="RETURNED BOOKS INFO"/></TextBlock>
-        <ListView SelectedIndex="{Binding SelectedBook}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="86,105,86,105">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewModel:ReturnViewModel/>
+    </UserControl.DataContext>
+    <Grid Background="#FFE5E5E5" DataContext="{Binding}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle HorizontalAlignment="Left" Height="38" Margin="186,29,0,0" Stroke="Black" VerticalAlignment="Top" Width="428" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Height="16" Margin="350,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101"><Run Language="pl-pl" Text="EMPLOYEES INFO"/></TextBlock>
+
+        <ListView SelectedIndex="{Binding Employees}" SelectedItem= "{Binding SelectedEmployee}" Margin="54,105,42,105">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Retrun ID" Width="130" DisplayMemberBinding="{Binding RetrnId}"/>
-                    <GridViewColumn Header="Surname" Width="170" DisplayMemberBinding="{Binding Surname}"/>
-                    <GridViewColumn Header="Title" Width="140" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="More Info" Width="150">
+                    <GridViewColumn Header="Rent ID" Width="10" DisplayMemberBinding="{Binding ReturnId}"/>
+                    <GridViewColumn Header="Reader ID" Width="120" DisplayMemberBinding="{Binding ReaderId}"/>
+                    <GridViewColumn Header="More Info" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Width="70" Click="Button_Click_ReturnedBooks_View"/>
+                                <Button Content="See more" Width="80" Command="{Binding DataContext.ShowMoreCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <!-- <Button Content="Return to menu" Background="Bisque" HorizontalAlignment="Left" Margin="594,370,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.995,19.847" Width="120" Height="33" Click="Button_Click"/> -->
+
+        <StackPanel Grid.Column="1" Background="#fff" Margin="0,105,10,105" Visibility="{Binding IsDetailViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Grid.Column="1" Background="#fff" Margin="0,105,10,105" Visibility="{Binding IsDetailViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="{Binding SelectedBook.ReturnId}" FontSize="18" FontWeight="Bold" Margin="10 10 0 10"/>
+                <TextBlock Text="{Binding SelectedBook.EmployeeId}" Margin="10 0 0 5"/>
+                <TextBlock Text="{Binding SelectedBook.BookId}" Margin="10 0 0 5"/>
+                <TextBlock Text="{Binding SelectedBook.ReaderId}" Margin="10 0 0 5"/>
+
+            </StackPanel>
+
+        </StackPanel>
 
     </Grid>
 </UserControl>
