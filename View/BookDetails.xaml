@@ -20,10 +20,10 @@
         </Grid.ColumnDefinitions>
 
         <Rectangle HorizontalAlignment="Left" Height="38" Margin="186,29,0,0" Stroke="Black" VerticalAlignment="Top" Width="428" Grid.ColumnSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Height="16" Margin="350,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66"><Run Language="pl-pl" Text="BOOK INFO"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="16" Margin="362,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Grid.ColumnSpan="2"><Run Language="pl-pl" Text="BOOK INFO"/></TextBlock>
 
         <!-- Master ListView -->
-        <ListView ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}" Margin="86,105,10,105">
+        <ListView ItemsSource="{Binding Books}"  Margin="86,105,10,105">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding BookId}" />
@@ -45,7 +45,7 @@
             <TextBlock Text="{Binding SelectedBook.Author}" Margin="10 0 0 5"/>
             <TextBlock Text="{Binding SelectedBook.Category}" Margin="10 0 0 5"/>
             <TextBlock Text="{Binding SelectedBook.Publisher}" Margin="10 0 0 5"/>
-           
+
         </StackPanel>
     </Grid>
 </UserControl>
